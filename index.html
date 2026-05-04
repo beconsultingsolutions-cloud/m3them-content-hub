@@ -4,1367 +4,1442 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>M3 & TH3M — Content Hub</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-/* ─── RESET ─────────────────────────────────────────────── */
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{font-size:16px;-webkit-text-size-adjust:100%}
-
-/* ─── M3 & TH3M BRAND TOKENS ────────────────────────────── */
-:root{
-  /* Primary */
-  --core-black:#111111;
-  --core-white:#FAFAF8;
-  --signal-blue:#2563EB;
-  /* Secondary */
-  --static-gray:#3D3D3D;
-  --ember-red:#C0392B;
-  --ghost-cream:#F2EDE4;
-  --depth-navy:#1A2744;
-  /* UI layering on black */
-  --surface-1:#1a1a1a;
-  --surface-2:#222222;
-  --surface-3:#2a2a2a;
-  --border-faint:rgba(250,250,248,0.07);
-  --border-soft:rgba(250,250,248,0.13);
-  --border-mid:rgba(250,250,248,0.22);
-  --text-primary:#FAFAF8;
-  --text-secondary:rgba(250,250,248,0.55);
-  --text-dim:rgba(250,250,248,0.28);
-  --blue-glow:rgba(37,99,235,0.15);
-  --blue-border:rgba(37,99,235,0.35);
-  --radius:4px;
-  --radius-md:6px;
-  --radius-lg:10px;
+:root {
+  --bg: #0a0a0a;
+  --surface: #111111;
+  --surface2: #1a1a1a;
+  --surface3: #222222;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.15);
+  --accent: #c8f55a;
+  --accent2: #f5c842;
+  --accent3: #f55a8c;
+  --text: #f0ede8;
+  --text2: #888880;
+  --text3: #555550;
+  --mono: 'Space Mono', monospace;
+  --sans: 'DM Sans', sans-serif;
+  --radius: 4px;
+  --radius-lg: 8px;
 }
 
-/* ─── BASE ───────────────────────────────────────────────── */
-body{
-  font-family:'DM Sans',system-ui,sans-serif;
-  background:var(--core-black);
-  color:var(--text-primary);
-  min-height:100vh;
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 14px;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-/* ─── LAYOUT ─────────────────────────────────────────────── */
-.shell{max-width:1200px;margin:0 auto;padding:0 24px 80px}
-
-/* ─── HEADER ─────────────────────────────────────────────── */
-.site-header{
-  padding:28px 0 24px;
-  border-bottom:1px solid var(--border-faint);
-  margin-bottom:32px;
-  display:flex;align-items:flex-end;justify-content:space-between;
-  flex-wrap:wrap;gap:16px;
-}
-.wordmark{
-  font-family:'Work Sans',sans-serif;
-  font-weight:900;
-  font-size:clamp(22px,4vw,32px);
-  letter-spacing:-0.01em;
-  color:var(--core-white);
-  line-height:1;
-}
-.wordmark .amp{color:var(--static-gray);font-weight:300}
-.wordmark .three{color:var(--signal-blue)}
-.tagline{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;
-  font-weight:400;
-  letter-spacing:0.2em;
-  text-transform:uppercase;
-  color:var(--text-dim);
-  margin-top:6px;
-}
-.header-right{display:flex;align-items:center;gap:12px}
-.signal-badge{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:700;
-  letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--signal-blue);
-  border:1px solid var(--blue-border);
-  padding:5px 14px;border-radius:2px;
-  background:var(--blue-glow);
-}
-.notif-btn{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:600;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--text-secondary);
-  border:1px solid var(--border-soft);
-  padding:5px 14px;border-radius:2px;
-  background:transparent;cursor:pointer;
-  transition:all .2s;
-  display:flex;align-items:center;gap:7px;
-}
-.notif-btn:hover{color:var(--core-white);border-color:var(--border-mid)}
-.notif-icon{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.5}
-
-/* ─── ALERT BAR ──────────────────────────────────────────── */
-.alert-bar{
-  display:none;
-  align-items:center;gap:12px;
-  border:1px solid var(--blue-border);
-  background:var(--blue-glow);
-  border-radius:var(--radius-md);
-  padding:10px 16px;
-  margin-bottom:20px;
-  font-family:'Work Sans',sans-serif;
-  font-size:11px;font-weight:600;
-  letter-spacing:0.06em;text-transform:uppercase;
-  color:var(--signal-blue);
-}
-.alert-bar.on{display:flex}
-.pulse{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--signal-blue);
-  animation:pulse 1.8s infinite;
-}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(0.8)}}
-
-/* ─── STATS ROW ──────────────────────────────────────────── */
-.stats-row{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(110px,1fr));
-  gap:1px;
-  margin-bottom:32px;
-  border:1px solid var(--border-faint);
-  border-radius:var(--radius-md);
-  overflow:hidden;
-}
-.stat{
-  background:var(--surface-1);
-  padding:18px 16px;
-  position:relative;
-}
-.stat::after{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:2px;
-}
-.stat:nth-child(1)::after{background:var(--core-white)}
-.stat:nth-child(2)::after{background:var(--signal-blue)}
-.stat:nth-child(3)::after{background:var(--static-gray)}
-.stat:nth-child(4)::after{background:var(--ember-red)}
-.stat-val{
-  font-family:'Work Sans',sans-serif;
-  font-size:clamp(20px,3vw,28px);
-  font-weight:800;
-  color:var(--core-white);
-  line-height:1;
-  letter-spacing:-0.02em;
-}
-.stat-lbl{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:500;
-  letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--text-dim);
-  margin-top:6px;
+.scanline {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.03) 2px, rgba(0,0,0,0.03) 4px);
+  pointer-events: none; z-index: 9999;
 }
 
-/* ─── TAB BAR ────────────────────────────────────────────── */
-.tab-bar{
-  display:flex;gap:0;
-  border-bottom:1px solid var(--border-faint);
-  margin-bottom:28px;
-}
-.tab{
-  font-family:'Work Sans',sans-serif;
-  font-size:11px;font-weight:600;
-  letter-spacing:0.14em;text-transform:uppercase;
-  color:var(--text-dim);
-  background:transparent;border:none;
-  padding:12px 20px;cursor:pointer;
-  position:relative;transition:color .2s;
-  white-space:nowrap;
-}
-.tab::after{
-  content:'';position:absolute;
-  bottom:-1px;left:0;right:0;height:2px;
-  background:var(--signal-blue);
-  transform:scaleX(0);transition:transform .2s;
-}
-.tab:hover{color:var(--text-secondary)}
-.tab.on{color:var(--core-white)}
-.tab.on::after{transform:scaleX(1)}
-
-/* ─── PANEL ──────────────────────────────────────────────── */
-.panel{display:none}
-.panel.on{display:block}
-
-/* ─── FILTER ROW ─────────────────────────────────────────── */
-.filter-strip{
-  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
-  margin-bottom:16px;
-}
-.filter-sep{
-  width:1px;height:16px;background:var(--border-faint);
-  margin:0 6px;
-}
-.filter-label{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--text-dim);
-}
-.chip{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:600;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--text-dim);
-  border:1px solid var(--border-faint);
-  background:transparent;
-  padding:4px 12px;border-radius:2px;
-  cursor:pointer;transition:all .15s;
-}
-.chip:hover{color:var(--text-secondary);border-color:var(--border-soft)}
-.chip.on{color:var(--signal-blue);border-color:var(--blue-border);background:var(--blue-glow)}
-
-/* ─── SEARCH ─────────────────────────────────────────────── */
-.search-wrap{
-  position:relative;margin-bottom:20px;max-width:360px;
-}
-.search-wrap svg{
-  position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  width:14px;height:14px;stroke:var(--text-dim);fill:none;stroke-width:1.5;
-  pointer-events:none;
-}
-.search-input{
-  width:100%;
-  padding:9px 12px 9px 36px;
-  background:var(--surface-1);
-  border:1px solid var(--border-faint);
-  border-radius:var(--radius);
-  color:var(--text-primary);
-  font-family:'DM Sans',sans-serif;font-size:13px;
-  outline:none;transition:border-color .2s;
-}
-.search-input:focus{border-color:var(--blue-border)}
-.search-input::placeholder{color:var(--text-dim)}
-
-/* ─── LINES GRID ─────────────────────────────────────────── */
-.lines-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(290px,1fr));
-  gap:1px;
-  max-height:560px;overflow-y:auto;
-  border:1px solid var(--border-faint);
-  border-radius:var(--radius-md);
-  background:var(--border-faint);
-}
-.lines-grid::-webkit-scrollbar{width:3px}
-.lines-grid::-webkit-scrollbar-track{background:transparent}
-.lines-grid::-webkit-scrollbar-thumb{background:var(--border-soft)}
-
-.line-card{
-  background:var(--surface-1);
-  padding:18px;cursor:pointer;
-  transition:background .15s;
-  display:flex;flex-direction:column;gap:10px;
-}
-.line-card:hover{background:var(--surface-2)}
-.line-card.sel{background:var(--surface-2);border-left:2px solid var(--signal-blue)}
-
-.line-id{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--text-dim);
-}
-.line-quote{
-  font-family:'DM Sans',sans-serif;
-  font-size:13px;font-style:italic;
-  line-height:1.65;color:var(--ghost-cream);
-}
-.line-pills{display:flex;gap:5px;flex-wrap:wrap}
-.pill{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;
-  padding:2px 8px;border-radius:2px;
-}
-.p-book{background:rgba(250,250,248,0.07);color:rgba(250,250,248,0.5)}
-.p-freq{background:rgba(37,99,235,0.12);color:var(--signal-blue)}
-.p-hybrid{background:rgba(192,57,43,0.12);color:#E05A4A}
-.p-theme{background:rgba(242,237,228,0.07);color:var(--ghost-cream)}
-.p-phase{background:transparent;color:var(--text-dim);border:1px solid var(--border-faint)}
-
-.use-btn{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--text-dim);
-  border:1px solid var(--border-faint);
-  background:transparent;padding:4px 10px;
-  border-radius:var(--radius);cursor:pointer;
-  width:fit-content;transition:all .15s;
-}
-.use-btn:hover{color:var(--signal-blue);border-color:var(--blue-border)}
-
-/* ─── GENERATOR ──────────────────────────────────────────── */
-.gen-layout{
-  display:grid;
-  grid-template-columns:minmax(0,1fr) minmax(0,1.6fr);
-  gap:32px;align-items:start;
-}
-@media(max-width:720px){.gen-layout{grid-template-columns:1fr}}
-
-.gen-col{display:flex;flex-direction:column;gap:20px}
-
-.field-label{
-  display:block;
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.2em;text-transform:uppercase;
-  color:var(--text-dim);margin-bottom:8px;
-}
-.gen-select,.gen-textarea{
-  width:100%;
-  padding:10px 13px;
-  background:var(--surface-1);
-  border:1px solid var(--border-faint);
-  border-radius:var(--radius);
-  color:var(--text-primary);
-  font-family:'DM Sans',sans-serif;font-size:13px;
-  outline:none;transition:border-color .2s;
-}
-.gen-select:focus,.gen-textarea:focus{border-color:var(--blue-border)}
-.gen-textarea{resize:none;height:80px;line-height:1.6}
-
-.plat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
-.plat-btn{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:600;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--text-dim);
-  border:1px solid var(--border-faint);
-  background:transparent;
-  padding:8px 4px;border-radius:var(--radius);
-  cursor:pointer;text-align:center;transition:all .15s;
-}
-.plat-btn:hover{color:var(--text-secondary);border-color:var(--border-soft)}
-.plat-btn.on{color:var(--signal-blue);border-color:var(--blue-border);background:var(--blue-glow)}
-
-.bg-row{display:flex;gap:6px}
-.bg-sw{
-  flex:1;height:28px;border-radius:var(--radius);
-  cursor:pointer;border:2px solid transparent;
-  transition:border-color .15s;position:relative;
-}
-.bg-sw.on{border-color:var(--signal-blue)}
-.bg-sw span{
-  position:absolute;bottom:2px;left:0;right:0;
-  text-align:center;
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;letter-spacing:0.08em;
-  text-transform:uppercase;
-  color:rgba(255,255,255,0.6);
+header {
+  border-bottom: 1px solid var(--border);
+  padding: 20px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(8px);
 }
 
-.action-btn{
-  width:100%;padding:12px;
-  font-family:'Work Sans',sans-serif;
-  font-size:11px;font-weight:700;
-  letter-spacing:0.14em;text-transform:uppercase;
-  border:none;border-radius:var(--radius);cursor:pointer;
-  transition:all .15s;
-}
-.action-btn.primary{background:var(--signal-blue);color:var(--core-white)}
-.action-btn.primary:hover{background:#1d4ed8}
-.action-btn.secondary{
-  background:transparent;color:var(--text-secondary);
-  border:1px solid var(--border-soft);
-}
-.action-btn.secondary:hover{color:var(--core-white);border-color:var(--border-mid)}
-
-/* ─── PREVIEW ────────────────────────────────────────────── */
-.preview-col{display:flex;flex-direction:column;align-items:center;gap:14px;padding-top:4px}
-.preview-lbl{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--text-dim);
-}
-.preview-hint{
-  font-family:'DM Sans',sans-serif;
-  font-size:12px;color:var(--text-dim);
-  text-align:center;max-width:260px;line-height:1.6;
+.logo {
+  font-family: var(--mono);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
-/* Phone */
-.phone{
-  width:min(264px,100%);
-  background:var(--surface-2);
-  border:1px solid var(--border-soft);
-  border-radius:18px;overflow:hidden;
-}
-.ph-notch{
-  height:18px;background:var(--core-black);
-  display:flex;align-items:center;justify-content:center;
-}
-.ph-pill{width:36px;height:5px;background:var(--surface-3);border-radius:10px}
+.logo span { color: var(--accent); }
 
-/* IG */
-.ig-top{
-  padding:8px 10px;display:flex;align-items:center;gap:8px;
-  border-bottom:1px solid var(--border-faint);
-}
-.ig-av{
-  width:26px;height:26px;border-radius:50%;
-  background:var(--static-gray);
-  display:flex;align-items:center;justify-content:center;
-  font-family:'Work Sans',sans-serif;font-size:9px;font-weight:800;
-  color:var(--core-white);flex-shrink:0;
-}
-.ig-sq{
-  width:100%;aspect-ratio:1;
-  display:flex;align-items:center;justify-content:center;
-  flex-direction:column;padding:22px;gap:14px;
-  position:relative;overflow:hidden;
-}
-.ig-foot{
-  padding:8px 10px;display:flex;align-items:center;gap:8px;
-  border-top:1px solid var(--border-faint);
-}
-.ig-ico{width:15px;height:15px;stroke-width:1.5;fill:none}
-
-/* Carousel */
-.car-outer{width:100%;aspect-ratio:1;position:relative;overflow:hidden}
-.car-track{display:flex;transition:transform .3s ease;height:100%}
-.car-slide{
-  min-width:100%;display:flex;align-items:center;
-  justify-content:center;flex-direction:column;
-  padding:20px;gap:10px;
-}
-.car-nav{
-  display:flex;gap:4px;justify-content:center;
-  padding:6px;background:var(--surface-2);
-}
-.car-dot{width:4px;height:4px;border-radius:50%;background:var(--border-soft);cursor:pointer;transition:background .2s}
-.car-dot.on{background:var(--signal-blue)}
-.car-arrows{
-  position:absolute;top:50%;transform:translateY(-50%);
-  width:100%;display:flex;justify-content:space-between;
-  padding:0 8px;pointer-events:none;
-}
-.car-arr{
-  pointer-events:all;width:22px;height:22px;border-radius:50%;
-  background:rgba(0,0,0,0.5);border:1px solid rgba(255,255,255,0.15);
-  color:#fff;font-size:12px;display:flex;align-items:center;
-  justify-content:center;cursor:pointer;
+.nav-tabs {
+  display: flex; gap: 2px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 3px;
 }
 
-/* Story */
-.story-wrap{
-  width:140px;aspect-ratio:9/16;border-radius:12px;
-  overflow:hidden;display:flex;align-items:center;
-  justify-content:center;flex-direction:column;
-  padding:16px;gap:10px;position:relative;
+.nav-tab {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 6px 16px;
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--text2);
+  transition: all 0.15s;
+  letter-spacing: 0.5px;
+  border: none; background: transparent;
 }
 
-/* LI */
-.li-wrap{
-  width:100%;max-width:340px;
-  background:var(--surface-1);border:1px solid var(--border-faint);
-  border-radius:var(--radius-md);overflow:hidden;
-}
-.li-head{
-  padding:12px;display:flex;gap:8px;
-  border-bottom:1px solid var(--border-faint);
-}
-.li-av{
-  width:32px;height:32px;border-radius:50%;
-  background:var(--depth-navy);display:flex;
-  align-items:center;justify-content:center;
-  font-family:'Work Sans',sans-serif;font-size:10px;font-weight:800;
-  color:var(--core-white);flex-shrink:0;
-}
-.li-body{padding:12px;font-size:12px;line-height:1.65}
-.li-foot{
-  padding:8px 12px;border-top:1px solid var(--border-faint);
-  display:flex;gap:12px;font-size:11px;color:var(--text-dim);
+.nav-tab.active {
+  background: var(--surface3);
+  color: var(--accent);
 }
 
-/* Threads */
-.th-wrap{
-  width:100%;max-width:300px;
-  background:var(--surface-1);border:1px solid var(--border-faint);
-  border-radius:var(--radius-md);padding:14px;display:flex;gap:10px;
-}
-.th-av{
-  width:28px;height:28px;border-radius:50%;
-  background:var(--static-gray);display:flex;align-items:center;
-  justify-content:center;font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:800;color:var(--core-white);flex-shrink:0;
+.nav-tab:hover:not(.active) { color: var(--text); }
+
+.status-bar {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  display: flex; gap: 16px; align-items: center;
 }
 
-/* TikTok */
-.tt-wrap{
-  width:100%;max-width:300px;
-  background:var(--surface-1);border:1px solid var(--border-faint);
-  border-radius:var(--radius-md);padding:18px;
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  display: inline-block;
+  margin-right: 5px;
+  animation: pulse 2s infinite;
 }
 
-/* ─── CALENDAR ───────────────────────────────────────────── */
-.cal-controls{
-  display:flex;flex-wrap:wrap;gap:8px;
-  align-items:center;justify-content:space-between;
-  margin-bottom:20px;
-}
-.month-row{display:flex;gap:3px;flex-wrap:wrap}
-.m-tab{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:600;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--text-dim);border:1px solid var(--border-faint);
-  background:transparent;padding:5px 14px;border-radius:2px;
-  cursor:pointer;transition:all .15s;
-}
-.m-tab:hover{color:var(--text-secondary)}
-.m-tab.on{color:var(--signal-blue);border-color:var(--blue-border);background:var(--blue-glow)}
-
-.cadence-tag{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--text-dim);
-  border:1px solid var(--border-faint);
-  padding:4px 12px;border-radius:2px;
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
 }
 
-.cal-grid{
-  display:grid;grid-template-columns:repeat(7,1fr);gap:3px;
-}
-.cal-day-lbl{
-  text-align:center;
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.12em;text-transform:uppercase;
-  color:var(--text-dim);padding:4px 0;
-}
-.cal-cell{
-  min-height:66px;
-  background:var(--surface-1);
-  padding:6px;display:flex;
-  flex-direction:column;gap:3px;
-  border:1px solid transparent;
-  border-radius:var(--radius);
-  transition:border-color .15s;
-}
-.cal-cell:hover{border-color:var(--border-faint)}
-.cal-cell.empty{background:transparent;pointer-events:none}
-.cal-cell.today{border-color:var(--border-soft)}
-.cal-cell.launch-day{border-color:var(--signal-blue);background:var(--blue-glow)}
-.cal-num{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:600;
-  color:var(--text-dim);line-height:1;
-}
-.cal-cell.today .cal-num{color:var(--core-white)}
-.cal-cell.launch-day .cal-num{color:var(--signal-blue)}
-.cal-ev{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.06em;
-  padding:2px 5px;border-radius:2px;
-  line-height:1.4;cursor:pointer;
-  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
-  transition:opacity .15s;
-}
-.cal-ev:hover{opacity:.75}
-.ev-book{background:rgba(250,250,248,0.08);color:rgba(250,250,248,0.5)}
-.ev-freq{background:rgba(37,99,235,0.15);color:var(--signal-blue)}
-.ev-launch{background:var(--signal-blue);color:var(--core-white)}
-.ev-hybrid{background:rgba(192,57,43,0.15);color:#E05A4A}
+.main { padding: 0 32px 48px; max-width: 1200px; margin: 0 auto; }
 
-.cal-legend{
-  display:flex;gap:16px;flex-wrap:wrap;
-  margin-top:16px;align-items:center;
-}
-.leg{
-  display:flex;align-items:center;gap:6px;
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:700;
-  letter-spacing:0.1em;text-transform:uppercase;
-  color:var(--text-dim);
-}
-.leg-sq{width:10px;height:10px;border-radius:2px}
+.section { display: none; padding-top: 32px; }
+.section.active { display: block; }
 
-/* ─── MODAL ──────────────────────────────────────────────── */
-.modal-bg{
-  display:none;position:fixed;
-  top:0;left:0;right:0;bottom:0;
-  background:rgba(0,0,0,0.85);
-  z-index:1000;align-items:center;justify-content:center;
-}
-.modal-bg.on{display:flex}
-.modal{
-  background:var(--surface-1);
-  border:1px solid var(--border-soft);
-  border-radius:var(--radius-md);
-  padding:32px;max-width:460px;
-  width:calc(100% - 40px);
-}
-.modal-title{
-  font-family:'Work Sans',sans-serif;
-  font-size:20px;font-weight:800;
-  letter-spacing:-0.01em;
-  color:var(--core-white);margin-bottom:5px;
-}
-.modal-sub{
-  font-size:12px;color:var(--text-secondary);
-  margin-bottom:24px;line-height:1.7;
-}
-.upcoming-list{
-  list-style:none;display:flex;flex-direction:column;gap:4px;
-  max-height:200px;overflow-y:auto;margin-bottom:20px;
-}
-.upcoming-item{
-  display:flex;align-items:center;gap:10px;
-  background:var(--surface-2);
-  border-radius:var(--radius);
-  padding:8px 12px;font-size:11px;
-}
-.upcoming-date{
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:700;
-  color:var(--signal-blue);min-width:50px;
-  letter-spacing:0.06em;
-}
-.upcoming-text{color:var(--text-primary);flex:1}
-.upcoming-src{font-size:10px;color:var(--text-dim)}
-.notif-status-box{
-  background:var(--surface-2);border:1px solid var(--border-faint);
-  border-radius:var(--radius);padding:10px 14px;
-  font-size:12px;color:var(--text-secondary);
-  margin-bottom:20px;line-height:1.6;
-}
-.modal-btns{display:flex;gap:8px}
-.m-btn{
-  flex:1;padding:10px;border-radius:var(--radius);
-  font-family:'Work Sans',sans-serif;
-  font-size:10px;font-weight:700;
-  letter-spacing:0.12em;text-transform:uppercase;
-  cursor:pointer;transition:all .15s;border:1px solid transparent;
-}
-.m-btn.primary{background:var(--signal-blue);color:var(--core-white)}
-.m-btn.primary:hover{background:#1d4ed8}
-.m-btn.ghost{background:transparent;color:var(--text-dim);border-color:var(--border-faint)}
-.m-btn.ghost:hover{color:var(--text-secondary)}
-
-/* ─── COLLECTION CHIPS ───────────────────────────────────── */
-.col-indicator{
-  font-family:'Work Sans',sans-serif;
-  font-size:9px;font-weight:800;
-  letter-spacing:0.16em;text-transform:uppercase;
-  color:var(--text-dim);
-  position:absolute;top:10px;right:10px;
+/* CONTENT BANK */
+.bank-controls {
+  display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap;
 }
 
-/* ─── SIGNAL STRIPE ──────────────────────────────────────── */
-.signal-stripe{
-  width:24px;height:2px;
-  background:var(--signal-blue);border-radius:1px;
-  flex-shrink:0;
+.bank-filter {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 6px 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
 }
 
-/* ─── TOAST ──────────────────────────────────────────────── */
-.toast{
-  position:fixed;bottom:28px;right:24px;
-  background:var(--core-white);color:var(--core-black);
-  padding:12px 18px;border-radius:var(--radius);
-  font-family:'Work Sans',sans-serif;
-  font-size:11px;font-weight:700;letter-spacing:0.06em;
-  transform:translateY(70px);opacity:0;
-  transition:all .3s;z-index:2000;
-  max-width:300px;line-height:1.5;
+.bank-filter.active, .bank-filter:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
-.toast.on{transform:translateY(0);opacity:1}
 
-/* ─── DIVIDER ────────────────────────────────────────────── */
-.field-section{padding-bottom:20px;border-bottom:1px solid var(--border-faint)}
-
-/* ─── COPY BTN ───────────────────────────────────────────── */
-.copy-ok{color:var(--signal-blue) !important}
-
-/* ─── RESPONSIVE ─────────────────────────────────────────── */
-@media(max-width:600px){
-  .stats-row{grid-template-columns:repeat(2,1fr)}
-  .tab{font-size:9px;padding:10px 12px;letter-spacing:0.1em}
-  .lines-grid{grid-template-columns:1fr}
-  .cal-cell{min-height:50px;padding:4px}
-  .cal-ev{font-size:9px}
+.search-box {
+  margin-left: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  width: 240px;
+  outline: none;
 }
-@media(max-width:400px){
-  .cal-cell{min-height:40px}
-  .cal-day-lbl{font-size:9px;letter-spacing:0.06em}
+
+.search-box::placeholder { color: var(--text3); }
+.search-box:focus { border-color: var(--border2); }
+
+.lines-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 12px;
+}
+
+.line-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+  overflow: hidden;
+}
+
+.line-card::before {
+  content: '';
+  position: absolute; left: 0; top: 0; bottom: 0;
+  width: 3px;
+}
+
+.line-card.type-book::before { background: var(--accent); }
+.line-card.type-freq::before { background: var(--accent2); }
+.line-card.type-hybrid::before { background: var(--accent3); }
+
+.line-card:hover {
+  border-color: var(--border2);
+  background: var(--surface2);
+  transform: translateY(-1px);
+}
+
+.line-id {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  margin-bottom: 8px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.line-type-tag {
+  font-size: 9px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  font-family: var(--mono);
+  letter-spacing: 0.5px;
+}
+
+.type-book .line-type-tag { background: rgba(200,245,90,0.12); color: var(--accent); }
+.type-freq .line-type-tag { background: rgba(245,200,66,0.12); color: var(--accent2); }
+.type-hybrid .line-type-tag { background: rgba(245,90,140,0.12); color: var(--accent3); }
+
+.line-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+
+.line-meta {
+  display: flex; gap: 8px; align-items: center; justify-content: space-between;
+}
+
+.line-phase {
+  font-size: 10px;
+  color: var(--text3);
+  font-family: var(--mono);
+}
+
+.use-btn {
+  font-size: 10px;
+  font-family: var(--mono);
+  padding: 4px 10px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: 2px;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.15s;
+}
+
+.use-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+/* POST GENERATOR */
+.generator-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 24px;
+  min-height: 600px;
+}
+
+.gen-controls {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ctrl-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.ctrl-select {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 13px;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  outline: none;
+  cursor: pointer;
+}
+
+.ctrl-select:focus { border-color: var(--border2); }
+
+.platform-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.platform-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.platform-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,245,90,0.06);
+}
+
+/* IMAGE SECTION */
+.image-section {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+}
+
+.img-mode-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.img-mode-tab {
+  flex: 1;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 6px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+}
+
+.img-mode-tab.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,245,90,0.06);
+}
+
+.ai-prompt-box {
+  width: 100%;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 12px;
+  padding: 8px 10px;
+  resize: none;
+  outline: none;
+  height: 60px;
+  line-height: 1.5;
+}
+
+.ai-prompt-box::placeholder { color: var(--text3); }
+.ai-prompt-box:focus { border-color: var(--border2); }
+
+.upload-zone {
+  border: 1px dashed var(--border2);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.15s;
+  position: relative;
+}
+
+.upload-zone:hover { border-color: var(--accent); }
+.upload-zone input[type="file"] {
+  position: absolute; inset: 0;
+  opacity: 0; cursor: pointer;
+  width: 100%; height: 100%;
+}
+
+.upload-zone-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.5px;
+}
+
+.gen-btn {
+  width: 100%;
+  background: var(--accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: var(--radius);
+  padding: 12px;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-top: auto;
+}
+
+.gen-btn:hover { background: #d4ff6a; transform: translateY(-1px); }
+.gen-btn:active { transform: translateY(0); }
+.gen-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+.download-btn {
+  width: 100%;
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.download-btn:hover { border-color: var(--border2); color: var(--text); }
+
+/* PREVIEW CANVAS */
+.preview-area {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.preview-frame {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  min-height: 480px;
+}
+
+.preview-canvas-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+}
+
+#previewCanvas {
+  border-radius: 4px;
+  max-width: 100%;
+  max-height: 440px;
+  display: block;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.preview-loading {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s;
+}
+
+.preview-loading.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.loader-bar {
+  width: 200px;
+  height: 2px;
+  background: var(--surface3);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.loader-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 1px;
+  animation: loadbar 1.5s ease-in-out infinite;
+}
+
+@keyframes loadbar {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.loader-text {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: 0.8px;
+}
+
+.placeholder-msg {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* CALENDAR */
+.cal-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 24px;
+}
+
+.month-tabs { display: flex; gap: 4px; }
+
+.month-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.5px;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text2);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.month-btn.active { border-color: var(--accent); color: var(--accent); }
+
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.cal-day-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text3);
+  text-align: center;
+  padding: 8px 0;
+  letter-spacing: 0.5px;
+}
+
+.cal-day {
+  min-height: 80px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px;
+  position: relative;
+  transition: border-color 0.15s;
+}
+
+.cal-day:hover { border-color: var(--border2); }
+.cal-day.empty { background: transparent; border: none; }
+.cal-day.today { border-color: rgba(200,245,90,0.4); }
+
+.cal-date {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text3);
+  margin-bottom: 4px;
+}
+
+.today .cal-date { color: var(--accent); }
+
+.cal-event {
+  font-size: 9px;
+  font-family: var(--mono);
+  padding: 2px 5px;
+  border-radius: 2px;
+  margin-bottom: 2px;
+  cursor: pointer;
+  letter-spacing: 0.3px;
+  transition: opacity 0.1s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cal-event:hover { opacity: 0.8; }
+.cal-event.book { background: rgba(200,245,90,0.15); color: var(--accent); }
+.cal-event.freq { background: rgba(245,200,66,0.15); color: var(--accent2); }
+.cal-event.hybrid { background: rgba(245,90,140,0.15); color: var(--accent3); }
+
+.legend {
+  display: flex; gap: 16px; margin-top: 16px;
+}
+
+.legend-item {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--mono); font-size: 10px; color: var(--text2);
+}
+
+.legend-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+
+/* NOTIFICATIONS */
+.notif-bar {
+  background: rgba(200,245,90,0.06);
+  border: 1px solid rgba(200,245,90,0.2);
+  border-radius: var(--radius);
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.notif-text {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.5px;
+}
+
+.notif-btn {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 5px 12px;
+  background: var(--accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* SECTION HEADER */
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-family: var(--mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.5px;
+}
+
+.section-sub {
+  font-size: 12px;
+  color: var(--text3);
+  margin-top: 4px;
+  font-family: var(--mono);
+  letter-spacing: 0.3px;
+}
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  background: var(--surface3);
+  border: 1px solid var(--border2);
+  border-radius: var(--radius-lg);
+  padding: 12px 20px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text);
+  letter-spacing: 0.5px;
+  z-index: 1000;
+  transform: translateY(80px);
+  opacity: 0;
+  transition: all 0.3s;
+}
+
+.toast.show { transform: translateY(0); opacity: 1; }
+.toast.success { border-color: rgba(200,245,90,0.4); color: var(--accent); }
+.toast.error { border-color: rgba(245,90,90,0.4); color: #f55a5a; }
+
+.error-msg {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: #f55a5a;
+  margin-top: 6px;
+  letter-spacing: 0.3px;
 }
 </style>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 </head>
 <body>
-<div class="shell">
+<div class="scanline"></div>
 
-  <!-- ── HEADER ── -->
-  <header class="site-header">
-    <div>
-      <div class="wordmark">M<span class="three">3</span> <span class="amp">&amp;</span> TH<span class="three">3</span>M</div>
-      <div class="tagline">Content Hub &nbsp;·&nbsp; Wear the frequency.</div>
-    </div>
-    <div class="header-right">
-      <div class="signal-badge">Sept 15 · Launch</div>
-      <button class="notif-btn" onclick="openModal()">
-        <svg class="notif-icon" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        Reminders
-      </button>
-    </div>
-  </header>
-
-  <!-- ── ALERT BAR ── -->
-  <div class="alert-bar" id="alert-bar">
-    <div class="pulse"></div>
-    <span id="alert-msg">Post due today</span>
+<header>
+  <div class="logo">M3 <span>&</span> TH3M</div>
+  <div class="nav-tabs">
+    <button class="nav-tab active" onclick="switchSection('bank')">CONTENT BANK</button>
+    <button class="nav-tab" onclick="switchSection('generator')">POST GENERATOR</button>
+    <button class="nav-tab" onclick="switchSection('calendar')">POSTING CALENDAR</button>
   </div>
-
-  <!-- ── STATS ── -->
-  <div class="stats-row">
-    <div class="stat"><div class="stat-val">60</div><div class="stat-lbl">Lines</div></div>
-    <div class="stat"><div class="stat-val">5</div><div class="stat-lbl">Phases</div></div>
-    <div class="stat"><div class="stat-val">4</div><div class="stat-lbl">Collections</div></div>
-    <div class="stat"><div class="stat-val">Sep 15</div><div class="stat-lbl">Launch</div></div>
+  <div class="status-bar">
+    <span><span class="status-dot"></span>SIGNAL LIVE</span>
+    <span>60 LINES</span>
   </div>
+</header>
 
-  <!-- ── TABS ── -->
-  <div class="tab-bar">
-    <button class="tab on" onclick="showTab('bank',this)">Content Bank</button>
-    <button class="tab" onclick="showTab('gen',this)">Post Generator</button>
-    <button class="tab" onclick="showTab('cal',this)">Posting Calendar</button>
+<div class="main">
+
+<!-- CONTENT BANK -->
+<div id="bank" class="section active">
+  <div class="section-header">
+    <div class="section-title">CONTENT BANK</div>
+    <div class="section-sub">60 lines — wear the frequency</div>
   </div>
-
-  <!-- ═══════ BANK ═══════ -->
-  <div id="bank" class="panel on">
-    <div class="filter-strip">
-      <span class="filter-label">Source</span>
-      <button class="chip on" onclick="setF('src','all',this)">All</button>
-      <button class="chip" onclick="setF('src','Book',this)">Book</button>
-      <button class="chip" onclick="setF('src','4FREQ',this)">4FREQ</button>
-      <button class="chip" onclick="setF('src','Hybrid',this)">Hybrid</button>
-      <div class="filter-sep"></div>
-      <span class="filter-label">Phase</span>
-      <button class="chip on" onclick="setF('ph','all',this)">All</button>
-      <button class="chip" onclick="setF('ph','Foundation',this)">Foundation</button>
-      <button class="chip" onclick="setF('ph','Build',this)">Build</button>
-      <button class="chip" onclick="setF('ph','Amplify',this)">Amplify</button>
-      <button class="chip" onclick="setF('ph','Pre-launch',this)">Pre-launch</button>
-      <button class="chip" onclick="setF('ph','Launch',this)">Launch</button>
-    </div>
-    <div class="search-wrap">
-      <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input class="search-input" id="search" type="text" placeholder="Signal. Interrupt. Persist." oninput="renderLines()">
-    </div>
-    <div class="lines-grid" id="lines-grid"></div>
+  <div class="bank-controls">
+    <button class="bank-filter active" onclick="filterLines('all', this)">ALL</button>
+    <button class="bank-filter" onclick="filterLines('book', this)">BOOK</button>
+    <button class="bank-filter" onclick="filterLines('freq', this)">4FREQ</button>
+    <button class="bank-filter" onclick="filterLines('hybrid', this)">HYBRID</button>
+    <button class="bank-filter" onclick="filterLines('foundation', this)">FOUNDATION</button>
+    <button class="bank-filter" onclick="filterLines('resistance', this)">RESISTANCE</button>
+    <button class="bank-filter" onclick="filterLines('identity', this)">IDENTITY</button>
+    <button class="bank-filter" onclick="filterLines('launch', this)">LAUNCH</button>
+    <input class="search-box" id="searchBox" placeholder="search lines..." oninput="searchLines()" />
   </div>
+  <div class="lines-grid" id="linesGrid"></div>
+</div>
 
-  <!-- ═══════ GENERATOR ═══════ -->
-  <div id="gen" class="panel">
-    <div class="gen-layout">
-      <div class="gen-col">
-        <div class="field-section">
-          <span class="field-label">Select line</span>
-          <select class="gen-select" id="line-sel" onchange="renderPrev()"></select>
+<!-- POST GENERATOR -->
+<div id="generator" class="section">
+  <div class="section-header">
+    <div class="section-title">POST GENERATOR</div>
+    <div class="section-sub">select a line · add image · render post</div>
+  </div>
+  <div class="generator-layout">
+    <div class="gen-controls">
+
+      <div>
+        <span class="ctrl-label">CONTENT LINE</span>
+        <select class="ctrl-select" id="lineSelect" onchange="updatePreview()">
+          <option value="">— select a line —</option>
+        </select>
+      </div>
+
+      <div>
+        <span class="ctrl-label">PLATFORM</span>
+        <div class="platform-grid">
+          <button class="platform-btn active" onclick="setPlatform('ig', this)">IG SQUARE</button>
+          <button class="platform-btn" onclick="setPlatform('story', this)">STORY</button>
+          <button class="platform-btn" onclick="setPlatform('linkedin', this)">LINKEDIN</button>
+          <button class="platform-btn" onclick="setPlatform('threads', this)">THREADS</button>
         </div>
-        <div class="field-section">
-          <span class="field-label">Platform</span>
-          <div class="plat-grid">
-            <button class="plat-btn on" onclick="setPlat('ig',this)">IG Single</button>
-            <button class="plat-btn" onclick="setPlat('carousel',this)">Carousel</button>
-            <button class="plat-btn" onclick="setPlat('linkedin',this)">LinkedIn</button>
-            <button class="plat-btn" onclick="setPlat('threads',this)">Threads</button>
-            <button class="plat-btn" onclick="setPlat('story',this)">Story</button>
-            <button class="plat-btn" onclick="setPlat('tiktok',this)">TikTok</button>
+      </div>
+
+      <div>
+        <span class="ctrl-label">TEXT STYLE</span>
+        <select class="ctrl-select" id="styleSelect" onchange="updatePreview()">
+          <option value="centered">Centered Statement</option>
+          <option value="split">Split Layout</option>
+          <option value="minimal">Minimal — text only</option>
+          <option value="bold">Bold Block</option>
+        </select>
+      </div>
+
+      <div>
+        <span class="ctrl-label">IMAGE</span>
+        <div class="image-section">
+          <div class="img-mode-tabs">
+            <button class="img-mode-tab active" onclick="setImgMode('none', this)">NONE</button>
+            <button class="img-mode-tab" onclick="setImgMode('ai', this)">AI GEN</button>
+            <button class="img-mode-tab" onclick="setImgMode('upload', this)">UPLOAD</button>
+          </div>
+
+          <div id="imgModeNone" class="img-mode-panel">
+            <div style="font-family: var(--mono); font-size: 10px; color: var(--text3); letter-spacing: 0.5px;">
+              Using brand gradient background
+            </div>
+          </div>
+
+          <div id="imgModeAi" class="img-mode-panel" style="display:none;">
+            <textarea class="ai-prompt-box" id="aiPromptBox" placeholder="describe the visual (auto-filled from your line)..."></textarea>
+            <button class="gen-btn" style="margin-top: 8px; padding: 8px; font-size: 10px;" onclick="generateAIImage()">
+              GENERATE IMAGE ↗
+            </button>
+            <div class="error-msg" id="aiError" style="display:none;"></div>
+          </div>
+
+          <div id="imgModeUpload" class="img-mode-panel" style="display:none;">
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" accept="image/*" onchange="handleImageUpload(event)" />
+              <div class="upload-zone-text" id="uploadZoneText">
+                CLICK OR DROP IMAGE<br>
+                <span style="color: var(--text3); font-size: 9px;">JPG, PNG, WEBP</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="field-section">
-          <span class="field-label">Caption / context</span>
-          <textarea class="gen-textarea" id="caption" placeholder="The sentence you wrote at 2am that surprised you with its clarity." oninput="renderPrev()"></textarea>
-        </div>
-        <div class="field-section">
-          <span class="field-label">Background</span>
-          <div class="bg-row">
-            <div class="bg-sw on" style="background:#111111" onclick="setBg('black',this)" title="Core Black"><span>Black</span></div>
-            <div class="bg-sw" style="background:#FAFAF8" onclick="setBg('white',this)" title="Core White"><span style="color:#111">White</span></div>
-            <div class="bg-sw" style="background:#2563EB" onclick="setBg('blue',this)" title="Signal Blue"><span>Blue</span></div>
-            <div class="bg-sw" style="background:#1A2744" onclick="setBg('navy',this)" title="Depth Navy"><span>Navy</span></div>
+      </div>
+
+      <button class="gen-btn" onclick="renderFinalPost()">RENDER POST</button>
+      <button class="download-btn" onclick="downloadPost('png')">DOWNLOAD PNG</button>
+      <button class="download-btn" onclick="downloadPost('jpg')">DOWNLOAD JPG</button>
+
+    </div>
+
+    <div class="preview-area">
+      <div class="preview-frame">
+        <div class="preview-canvas-wrap">
+          <canvas id="previewCanvas"></canvas>
+          <div class="placeholder-msg" id="placeholderMsg">
+            SELECT A LINE AND CLICK RENDER POST
           </div>
         </div>
-        <button class="action-btn primary" onclick="copyText()" id="copy-btn">Copy Line Text</button>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
-          <button class="action-btn secondary" onclick="downloadImg('png')">Download PNG</button>
-          <button class="action-btn secondary" onclick="downloadImg('jpeg')">Download JPG</button>
+        <div class="preview-loading" id="previewLoading">
+          <div class="loader-text">GENERATING IMAGE</div>
+          <div class="loader-bar"><div class="loader-fill"></div></div>
         </div>
       </div>
-
-      <div class="preview-col">
-        <div class="preview-lbl" id="prev-lbl">IG Single · 1:1</div>
-        <div id="prev-mount"></div>
-        <p class="preview-hint" id="prev-hint">Select a line above to preview</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- ═══════ CALENDAR ═══════ -->
-  <div id="cal" class="panel">
-    <div class="cal-controls">
-      <div class="month-row">
-        <button class="m-tab on" onclick="showMonth('may',this)">May</button>
-        <button class="m-tab" onclick="showMonth('june',this)">June</button>
-        <button class="m-tab" onclick="showMonth('july',this)">July</button>
-        <button class="m-tab" onclick="showMonth('august',this)">Aug</button>
-        <button class="m-tab" onclick="showMonth('september',this)">Sep</button>
-        <button class="m-tab" onclick="showMonth('october',this)">Oct+</button>
-      </div>
-      <div class="cadence-tag" id="cadence-tag">1× / week</div>
-    </div>
-    <div id="cal-mount"></div>
-    <div class="cal-legend">
-      <div class="leg"><div class="leg-sq" style="background:rgba(250,250,248,0.08)"></div>Book</div>
-      <div class="leg"><div class="leg-sq" style="background:rgba(37,99,235,0.2)"></div>4FREQ</div>
-      <div class="leg"><div class="leg-sq" style="background:var(--signal-blue)"></div>Key / Launch</div>
-      <div class="leg"><div class="leg-sq" style="background:rgba(192,57,43,0.2)"></div>Hybrid</div>
-    </div>
-  </div>
-
-</div><!-- /shell -->
-
-<!-- ── MODAL ── -->
-<div class="modal-bg" id="modal">
-  <div class="modal">
-    <div class="modal-title">Posting Reminders</div>
-    <p class="modal-sub">Browser alerts fire when you open this file on a scheduled date. Bookmark it and open each morning for daily check-ins. The signal was always there.</p>
-    <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-dim);margin-bottom:10px">Upcoming · Next 14 Days</div>
-    <ul class="upcoming-list" id="upcoming-list"></ul>
-    <div class="notif-status-box" id="notif-status">Checking…</div>
-    <div class="modal-btns">
-      <button class="m-btn primary" onclick="requestNotif()">Enable Alerts</button>
-      <button class="m-btn ghost" onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
 
-<!-- ── TOAST ── -->
+<!-- CALENDAR -->
+<div id="calendar" class="section">
+  <div class="notif-bar">
+    <span class="notif-text">ENABLE POSTING REMINDERS</span>
+    <button class="notif-btn" onclick="enableNotifications()">ENABLE</button>
+  </div>
+  <div class="section-header">
+    <div class="section-title">POSTING CALENDAR</div>
+    <div class="section-sub">may — october · 4x per week cadence</div>
+  </div>
+  <div class="cal-header">
+    <div class="month-tabs" id="monthTabs"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>BOOK</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>4FREQ</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--accent3)"></div>HYBRID</div>
+    </div>
+  </div>
+  <div id="calGrid"></div>
+</div>
+
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
-/* ═══ DATA ═══════════════════════════════════════════════ */
-const LINES=[
-  {id:'L1',text:'Mental health. The kind that lives in your body, not just your calendar.',src:'Book',theme:'Naming · Recovery',phase:'Foundation → Launch',plat:'IG single · LinkedIn'},
-  {id:'L2',text:'I spent years fighting the noise before realizing I was searching for a frequency.',src:'Book',theme:'Noise · Frequency',phase:'Foundation → Launch',plat:'IG single · Threads'},
-  {id:'L3',text:'For the voices that tested me until I learned which one was truly mine.',src:'Book',theme:'Naming · Recovery',phase:'Foundation → Launch',plat:'IG single · Story slide'},
-  {id:'L4',text:'This is not the end of the work. It\'s not even the beginning. It is the moment you admit the signal is real — and decide to live long enough to learn what it\'s saying.',src:'Book',theme:'Recovery · Frequency',phase:'Amplify → Launch',plat:'LinkedIn · Newsletter'},
-  {id:'L5',text:'Living life without your F is like living with a third of your lung. You can breathe to exist, but not exactly live.',src:'4FREQ',theme:'Function · Find',phase:'Foundation → Launch',plat:'IG carousel · TikTok'},
-  {id:'L6',text:'Before this language I used in poetry became a tool, it was a weapon. Before silence became peace, it was a test.',src:'Book',theme:'Noise · Stillness',phase:'Build → Pre-launch',plat:'IG carousel · LinkedIn'},
-  {id:'L7',text:'But the danger in stillness is that you start to believe stillness is who you are. That your silence is your story.',src:'Book',theme:'Stillness · Naming',phase:'Build → Launch',plat:'IG single · Threads'},
-  {id:'L8',text:'What I didn\'t understand yet was that noise and silence were never enemies that needed to be armed. They only became dangerous when I stopped governing them.',src:'Book',theme:'Noise · Stillness',phase:'Amplify → Launch',plat:'LinkedIn · Newsletter'},
-  {id:'L9',text:'Where I once placed a tombstone for the time I stayed buried, I now build breath.',src:'Book',theme:'Recovery · Frequency',phase:'Pre-launch → Launch',plat:'IG single · Story slide'},
-  {id:'L10',text:'Upon these pages are revelations — not reactions.',src:'Book',theme:'Naming',phase:'Foundation → Launch',plat:'IG single · LinkedIn'},
-  {id:'L11',text:'And that nearly cost me everything — including this book.',src:'Book',theme:'Stillness · Recovery',phase:'Amplify → Launch',plat:'Threads · IG caption'},
-  {id:'L12',text:'I never studied poetry formally. Instead, I finally faced who I am.',src:'Book',theme:'Naming',phase:'Foundation → Launch',plat:'LinkedIn · Newsletter'},
-  {id:'L13',text:'I wrote. Not to win. Not to prove I was better. Not to turn pain into performance.',src:'Book',theme:'Naming · Recovery',phase:'Amplify → Launch',plat:'LinkedIn · IG carousel'},
-  {id:'L14',text:'Those historical monuments of pain now rest in museums of mentality.',src:'Book',theme:'Recovery · Frequency',phase:'Pre-launch → Launch',plat:'IG carousel · Story slide'},
-  {id:'L15',text:'I am frequency in rooms, in reasons, in statements.',src:'Book',theme:'Frequency',phase:'Pre-launch → Post-launch',plat:'IG single · Story slide'},
-  {id:'L16',text:'Lyrically unbound, I found melody beyond remedy — music of motion becoming inner devotion.',src:'Book',theme:'Frequency',phase:'Pre-launch → Launch',plat:'IG carousel · Story slide'},
-  {id:'L17',text:'I recall to we and them — and we are one.',src:'Book',theme:'Loop · Frequency',phase:'Launch week',plat:'IG single · Story slide'},
-  {id:'L18',text:'I play repeat to a sweeter serenade. I regained the art of my instrument.',src:'Book',theme:'Recovery · Frequency',phase:'Launch → Post-launch',plat:'IG carousel · Newsletter'},
-  {id:'L19',text:'Your habit without hesitation. Fear still functions — but it fuels your framework to keep finding yourself, not them.',src:'Book',theme:'Find · Function',phase:'Amplify → Launch',plat:'LinkedIn · IG carousel'},
-  {id:'L20',text:'Your legs move toward living because you chose to make moments from mistakes.',src:'Book',theme:'Recovery · Find',phase:'Pre-launch → Launch',plat:'IG single · Story slide'},
-  {id:'L21',text:'Ascending from the crypt of crisis you carved and cringed within, clouded days no longer weather your wisdom.',src:'Book',theme:'Recovery · Frequency',phase:'Launch → Post-launch',plat:'IG carousel'},
-  {id:'L22',text:'They no longer monopolize the time it took to find your terrain.',src:'Book',theme:'Naming · Find',phase:'Build → Launch',plat:'IG single · Threads'},
-  {id:'L23',text:'Sharpen your status, not your steel.',src:'Book',theme:'Function',phase:'Pre-launch → Post-launch',plat:'IG single · Threads · Apparel'},
-  {id:'L24',text:'Allow rage to maintain its mountains elsewhere. Your climb has ended. The battle was lifted. Now the war against your wisdom begins.',src:'Book',theme:'Recovery · Function',phase:'Amplify → Launch',plat:'IG carousel · LinkedIn'},
-  {id:'L25',text:'The armor is your attention.',src:'Book',theme:'Function',phase:'Pre-launch → Post-launch',plat:'IG single · Story slide · Apparel'},
-  {id:'L26',text:'I tried to outthink it. I got obsessed with patterns, triggers, and proof. I wrote in journals and convinced myself they were being read.',src:'Book',theme:'Noise · Naming',phase:'Amplify → Pre-launch',plat:'LinkedIn · Newsletter'},
-  {id:'L27',text:'Eventually, the only thing I knew how to do was shut down. Keep them out. Stay still. Don\'t say too much. Don\'t show too much. Just keep going.',src:'Book',theme:'Stillness · Noise',phase:'Amplify → Pre-launch',plat:'IG carousel · Newsletter'},
-  {id:'L28',text:'And somewhere inside all of that, there was still a life happening. Goals. Businesses. Plans. The version of me that wanted success and stability and something that didn\'t require self-destruction as fuel.',src:'Book',theme:'Naming · Recovery',phase:'Amplify → Pre-launch',plat:'LinkedIn · Newsletter'},
-  {id:'L29',text:'I learned early — through generosity, hospitality, attention — that safety often felt conditional.',src:'Book',theme:'Naming',phase:'Build → Launch',plat:'IG single · Threads'},
-  {id:'L30',text:'Shame, anger, regret, and the endless loop of why did I let this happen again?',src:'Book',theme:'Noise · Naming',phase:'Amplify → Launch',plat:'Threads · IG caption'},
-  {id:'L31',text:'A hopeful heart battling to beat, mistaking your endurance for intention.',src:'Book',theme:'Naming · Recovery',phase:'Build → Launch',plat:'IG single · Story slide'},
-  {id:'L32',text:'Admitting the tragedy versus truth was repetition, not repentance.',src:'Book',theme:'Naming · Recovery',phase:'Amplify → Launch',plat:'IG single · LinkedIn'},
-  {id:'L33',text:'Now acclimated — accepted — you no longer wait to be devastated.',src:'Book',theme:'Recovery',phase:'Pre-launch → Post-launch',plat:'IG single · Story slide'},
-  {id:'L34',text:'How does my vocabulary become the weapon that won\'t make me wince?',src:'Book',theme:'Naming',phase:'Build → Launch',plat:'IG single · LinkedIn'},
-  {id:'L35',text:'If truth is only implied while scrolling and trolling through trials of technical terrain…',src:'Book',theme:'Naming · Function',phase:'Build → Launch',plat:'Threads · LinkedIn'},
-  {id:'L36',text:'Your system of simplicity and selective hearing cannot corrupt the code of knowing.',src:'Book',theme:'Function · Find',phase:'Amplify → Launch',plat:'LinkedIn · IG carousel'},
-  {id:'L37',text:'I am no longer caged in computerized monopoly.',src:'Book',theme:'Function',phase:'Build → Launch',plat:'Threads · IG single'},
-  {id:'L38',text:'Behind the wheels of my worries, I water my eyes from expectations and experiences that make the existence of my essence essential.',src:'Book',theme:'Frequency · Find',phase:'Amplify → Launch',plat:'IG carousel · Newsletter'},
-  {id:'L39',text:'Windshields of wisdom cracked by stones of misbelief.',src:'Book',theme:'Naming · Find',phase:'Build → Launch',plat:'IG single · Story slide'},
-  {id:'L40',text:'My motored mentality grants the choice to change lanes. Unlimited.',src:'Book',theme:'Find · Recovery',phase:'Launch → Post-launch',plat:'IG single · Story slide'},
-  {id:'L41',text:'Time before making control feel like an accident.',src:'Book',theme:'Naming · Function',phase:'Pre-launch → Launch',plat:'Threads · IG single'},
-  {id:'L42',text:'Insured by the choices exchanged.',src:'Book',theme:'Find',phase:'Launch → Post-launch',plat:'IG single · Story slide'},
-  {id:'L43',text:'That\'s what finding the "F" is all about.',src:'4FREQ',theme:'Find',phase:'Foundation → Launch',plat:'IG carousel · TikTok'},
-  {id:'L44',text:'In life, we tend to forget ourselves. Forget our dreams. Our goals. Our courage. Our confidence.',src:'4FREQ',theme:'Forget',phase:'Build → Launch',plat:'IG carousel · LinkedIn'},
-  {id:'L45',text:'When we forget, we disrupt our system\'s soundwave — and we begin to only hear the sounds of sabotage, suffering, and separation from our authentic self.',src:'4FREQ',theme:'Forget · Frequency',phase:'Amplify → Launch',plat:'LinkedIn · Newsletter'},
-  {id:'L46',text:'Our feelings are sometimes the loudest and most silent throughout our lives. They are the guides on 90% of our instinct and intuition.',src:'4FREQ',theme:'Feel',phase:'Build → Launch',plat:'IG carousel · LinkedIn'},
-  {id:'L47',text:'Our feel is how we filter.',src:'4FREQ',theme:'Feel',phase:'Foundation → Post-launch',plat:'IG single · Story slide · Apparel'},
-  {id:'L48',text:'We are not robots. But we are rhythmic in our existence.',src:'4FREQ',theme:'Function · Frequency',phase:'Build → Launch',plat:'IG carousel · TikTok'},
-  {id:'L49',text:'Our function is where some of our key fundamentals exist: our morality, our sense of purpose, our ego, fear, joy, anger.',src:'4FREQ',theme:'Function',phase:'Amplify → Launch',plat:'IG carousel · Newsletter'},
-  {id:'L50',text:'If we don\'t fix them when they are broken or in need of repair… what happens to something that can\'t function?',src:'4FREQ',theme:'Function',phase:'Amplify → Launch',plat:'Threads · IG single'},
-  {id:'L51',text:'Finding is the last — but the most important — element of your F in life. Because if you can\'t find it, there can\'t be truth to you.',src:'4FREQ',theme:'Find',phase:'Pre-launch → Launch',plat:'IG carousel · LinkedIn'},
-  {id:'L52',text:'Your life, minus F… spells lie.',src:'4FREQ',theme:'Find',phase:'Pre-launch → Post-launch',plat:'IG single · Threads · TikTok'},
-  {id:'L53',text:'FORGET · FEEL · FUNCTION · FIND',src:'4FREQ',theme:'Loop',phase:'Foundation → Post-launch',plat:'IG carousel · Newsletter · Apparel'},
-  {id:'L54',text:'4FREQ is not therapy. It is not psychological guidance. It is a language for personal understanding, not diagnosis.',src:'4FREQ',theme:'Loop',phase:'Foundation → Post-launch',plat:'Newsletter footer · Site'},
-  {id:'L55',text:'Three works. One signal. ME & THEM is the testimony. 4FREQ is the practice. M3 | TH3M is the signal you wear.',src:'Hybrid',theme:'Loop',phase:'Foundation → Post-launch',plat:'Pinned post · Site · Bio'},
-  {id:'L56',text:'I never studied poetry formally. I was just a man who finally faced who he was. The book is what fell out.',src:'Hybrid',theme:'Naming',phase:'Foundation → Launch',plat:'LinkedIn · Newsletter'},
-  {id:'L57',text:'September is National Recovery Month. This is the book I needed when stillness almost became my story.',src:'Hybrid',theme:'Recovery',phase:'Pre-launch → Launch',plat:'Cross-platform · Newsletter'},
-  {id:'L58',text:'If a line in here landed — pre-orders are open. Every one helps a poem find a reader who needs it.',src:'Hybrid',theme:'Find',phase:'Pre-launch → Launch',plat:'All platforms'},
-  {id:'L59',text:'It\'s here. ME & THEM: A Place of Words is live. Mid-Recovery Month, on purpose.',src:'Hybrid',theme:'Frequency',phase:'Launch',plat:'All channels · Pinned'},
-  {id:'L60',text:'Recovery Month is closing. Thank you for reading the testimony, practicing the philosophy, and wearing the signal. The Loop continues.',src:'Hybrid',theme:'Loop',phase:'Post-launch',plat:'Newsletter · IG · LinkedIn'},
+const LINES = [
+  {id:'B01',type:'book',phase:'foundation',text:'The noise never stopped — it just learned how to wear a mask I recognized.'},
+  {id:'B02',type:'book',phase:'foundation',text:'Every chapter I tried to skip found its way back to the beginning.'},
+  {id:'B03',type:'book',phase:'resistance',text:'Silence was never peace. It was just the pause before the next performance.'},
+  {id:'B04',type:'book',phase:'resistance',text:'I built walls I called boundaries and called destruction discipline.'},
+  {id:'B05',type:'book',phase:'identity',text:'The version of me that survived wasn\'t the one I planned to become.'},
+  {id:'B06',type:'book',phase:'identity',text:'They watched the smoke. I was trying to find out where the fire started.'},
+  {id:'B07',type:'book',phase:'foundation',text:'There is a difference between carrying weight and dragging it behind you.'},
+  {id:'B08',type:'book',phase:'resistance',text:'Some battles look like stillness from the outside.'},
+  {id:'B09',type:'book',phase:'identity',text:'The loudest version of yourself is not always the truest one.'},
+  {id:'B10',type:'book',phase:'launch',text:'What I was running from taught me more than anything I was running toward.'},
+  {id:'B11',type:'book',phase:'launch',text:'The mirror does not lie. It just waits for you to stop looking away.'},
+  {id:'B12',type:'book',phase:'identity',text:'Healing is not a destination. It is a practice you keep showing up to.'},
+  {id:'B13',type:'book',phase:'foundation',text:'You cannot outwork a wound that you refuse to name.'},
+  {id:'B14',type:'book',phase:'resistance',text:'The hardest thing I ever did was stay in a room with myself.'},
+  {id:'B15',type:'book',phase:'launch',text:'Community held a mirror I was not ready for but needed every time.'},
+  {id:'F01',type:'freq',phase:'foundation',text:'Frequency is not volume. You can vibrate at full power without making a sound.'},
+  {id:'F02',type:'freq',phase:'identity',text:'The signal was always there. Most people just never learned to tune in.'},
+  {id:'F03',type:'freq',phase:'resistance',text:'Interference is temporary. Your signal was designed to outlast the noise.'},
+  {id:'F04',type:'freq',phase:'launch',text:'Broadcast from the truth of who you are — not who they needed you to be.'},
+  {id:'F05',type:'freq',phase:'identity',text:'Some people receive you immediately. Others will take years to find your wavelength.'},
+  {id:'F06',type:'freq',phase:'foundation',text:'Everything you endured built the transmitter you are using right now.'},
+  {id:'F07',type:'freq',phase:'resistance',text:'Static is not silence. Do not confuse the two.'},
+  {id:'F08',type:'freq',phase:'identity',text:'You were not built to compress yourself into someone else\'s bandwidth.'},
+  {id:'F09',type:'freq',phase:'launch',text:'When you speak from your frequency, the right people stop scrolling.'},
+  {id:'F10',type:'freq',phase:'foundation',text:'The world is loud because most people are broadcasting borrowed signals.'},
+  {id:'F11',type:'freq',phase:'resistance',text:'Being misunderstood is not proof you are wrong. Sometimes it is proof you are early.'},
+  {id:'F12',type:'freq',phase:'launch',text:'Your story is not background noise. It is the whole frequency.'},
+  {id:'F13',type:'freq',phase:'identity',text:'Stop muting yourself to make space in rooms that were never built for your voice.'},
+  {id:'F14',type:'freq',phase:'foundation',text:'The people who need to hear you have been searching for your signal longer than you know.'},
+  {id:'F15',type:'freq',phase:'launch',text:'Wearing the frequency means showing up even when the reception is unclear.'},
+  {id:'H01',type:'hybrid',phase:'foundation',text:'The book taught me what I was. The frequency taught me what I could transmit.'},
+  {id:'H02',type:'hybrid',phase:'identity',text:'ME is the archive. THEM is the audience. The signal is what travels between.'},
+  {id:'H03',type:'hybrid',phase:'resistance',text:'I spent years editing myself for rooms that were never worth staying in.'},
+  {id:'H04',type:'hybrid',phase:'launch',text:'What I survived became the message. What I broadcast became the movement.'},
+  {id:'H05',type:'hybrid',phase:'identity',text:'The rawness is the signal. The polish is optional. The truth is not.'},
+  {id:'H06',type:'hybrid',phase:'foundation',text:'They wanted the highlight. I started giving them the transmission.'},
+  {id:'H07',type:'hybrid',phase:'resistance',text:'Authenticity is expensive. Most people cannot afford to stop performing.'},
+  {id:'H08',type:'hybrid',phase:'identity',text:'The version of you that kept going — that\'s the one worth broadcasting.'},
+  {id:'H09',type:'hybrid',phase:'launch',text:'You do not need to be finished to be heard. The signal works while you\'re still building.'},
+  {id:'H10',type:'hybrid',phase:'foundation',text:'ME & THEM is not a story about me. It is a story about what happens when someone finally stops hiding.'},
+  {id:'H11',type:'hybrid',phase:'resistance',text:'Survival is not the end of the story. It is the middle of the signal.'},
+  {id:'H12',type:'hybrid',phase:'identity',text:'The community I feared being seen by became the community that held the frequency.'},
+  {id:'H13',type:'hybrid',phase:'launch',text:'Broadcasting your truth is not oversharing. It is the most disciplined thing you can do.'},
+  {id:'H14',type:'hybrid',phase:'foundation',text:'Every scar is metadata. Every wound is a data point. The story is the full transmission.'},
+  {id:'H15',type:'hybrid',phase:'resistance',text:'I did not write this book. I decompressed it from everything I refused to say out loud.'},
+  {id:'B16',type:'book',phase:'foundation',text:'The beginning was not a place I chose. But the frequency I left it on — that was mine.'},
+  {id:'B17',type:'book',phase:'resistance',text:'They judged the static. They never knew they were standing inside the signal.'},
+  {id:'B18',type:'book',phase:'identity',text:'The most dangerous version of me was the quiet one. Still. Watching. Waiting to transmit.'},
+  {id:'B19',type:'book',phase:'launch',text:'I stopped writing for closure. I started writing to leave the frequency open.'},
+  {id:'B20',type:'book',phase:'launch',text:'You were never too much. They just had weak receivers.'},
+  {id:'F16',type:'freq',phase:'resistance',text:'Consistency is the signal that cannot be faked over time.'},
+  {id:'F17',type:'freq',phase:'identity',text:'Wear it. Do not explain it. The right frequency explains itself.'},
+  {id:'F18',type:'freq',phase:'launch',text:'The world needs broadcasters, not performers. Know the difference.'},
+  {id:'H16',type:'hybrid',phase:'foundation',text:'Writing this cost me versions of myself I am still learning to mourn and celebrate simultaneously.'},
+  {id:'H17',type:'hybrid',phase:'resistance',text:'The transmission is not complete. But the signal is live.'},
+  {id:'H18',type:'hybrid',phase:'identity',text:'Me and them. The space between those words is where this whole story lives.'},
+  {id:'H19',type:'hybrid',phase:'launch',text:'This is not content. This is calibration.'},
+  {id:'H20',type:'hybrid',phase:'foundation',text:'Whatever broke you open — that\'s where your frequency started broadcasting from.'},
+  {id:'F19',type:'freq',phase:'identity',text:'Not everyone will tune in. The signal does not need universal reception to be real.'},
+  {id:'F20',type:'freq',phase:'launch',text:'You spent enough time on mute. The signal is ready when you are.'},
 ];
 
-const SCHED=[
-  [4,4,'L1','book'],[4,11,'L10','book'],[4,11,'L29','book'],[4,18,'L12','book'],[4,18,'L56','hybrid'],[4,25,'L7','book'],[4,25,'L31','book'],
-  [5,1,'L6','book'],[5,1,'L22','book'],[5,8,'L34','book'],[5,8,'L37','book'],[5,15,'L44','freq'],[5,15,'L48','freq'],[5,22,'L26','book'],[5,22,'L39','book'],[5,29,'L46','freq'],[5,29,'L11','book'],
-  [6,6,'L2','book'],[6,8,'L4','book'],[6,10,'L8','book'],[6,13,'L19','book'],[6,15,'L24','book'],[6,17,'L27','book'],[6,20,'L30','book'],[6,22,'L32','book'],[6,24,'L35','book'],[6,27,'L13','book'],[6,29,'L36','book'],[6,31,'L45','freq'],
-  [7,3,'L58','launch'],[7,5,'L9','book'],[7,7,'L20','book'],[7,9,'L33','book'],[7,11,'L40','book'],[7,12,'L14','book'],[7,14,'L16','book'],[7,17,'L51','freq'],[7,19,'L52','freq'],[7,21,'L43','freq'],[7,24,'L15','book'],[7,26,'L17','book'],[7,28,'L23','book'],[7,31,'L57','launch'],
-  [8,1,'L57','launch'],[8,2,'L1','book'],[8,3,'L8','book'],[8,4,'L18','book'],[8,5,'L9','book'],[8,6,'L46','freq'],[8,7,'L13','book'],[8,8,'L4','book'],[8,9,'L20','book'],[8,10,'L52','freq'],[8,11,'L17','book'],[8,12,'L51','freq'],[8,13,'L40','book'],[8,14,'L58','hybrid'],[8,15,'★LAUNCH','launch'],[8,16,'L15','book'],[8,17,'L33','book'],[8,18,'L42','book'],[8,19,'L23','book'],[8,20,'L25','book'],[8,22,'L21','book'],[8,24,'L18','book'],[8,26,'L53','freq'],[8,28,'L17','book'],[8,30,'L60','launch'],
-  [9,3,'L47','freq'],[9,6,'L23','book'],[9,10,'L52','freq'],[9,13,'L25','book'],
-];
+let activeFilter = 'all';
+let uploadedImageDataUrl = null;
+let aiGeneratedImageDataUrl = null;
+let currentImgMode = 'none';
+let currentPlatform = 'ig';
+let currentMonth = 'may';
 
-const MONTHS={
-  may:{name:'May 2026',off:4,days:31,cad:'1× / week reflective',mi:4},
-  june:{name:'June 2026',off:0,days:30,cad:'2× / week mixed',mi:5},
-  july:{name:'July 2026',off:2,days:31,cad:'3× / week',mi:6},
-  august:{name:'August 2026',off:5,days:31,cad:'5× / week',mi:7},
-  september:{name:'September 2026',off:1,days:30,cad:'Daily',mi:8},
-  october:{name:'October+ 2026',off:3,days:15,cad:'3× / week evergreen',mi:9},
+const PLATFORM_DIMS = {
+  ig: { w: 1080, h: 1080, label: '1080×1080' },
+  story: { w: 1080, h: 1920, label: '1080×1920' },
+  linkedin: { w: 1200, h: 628, label: '1200×628' },
+  threads: { w: 1080, h: 1080, label: '1080×1080' },
 };
 
-const BG_STYLES={
-  black:{bg:'#111111',text:'#FAFAF8',accent:'#2563EB',sub:'rgba(250,250,248,0.45)',stripe:'#2563EB'},
-  white:{bg:'#FAFAF8',text:'#111111',accent:'#2563EB',sub:'rgba(17,17,17,0.5)',stripe:'#2563EB'},
-  blue:{bg:'#2563EB',text:'#FAFAF8',accent:'#FAFAF8',sub:'rgba(250,250,248,0.6)',stripe:'#FAFAF8'},
-  navy:{bg:'#1A2744',text:'#F2EDE4',accent:'#2563EB',sub:'rgba(242,237,228,0.5)',stripe:'#2563EB'},
-};
-
-let SF={src:'all',ph:'all'};
-let plat='ig', bg='black', month='may', cIdx=0;
-
-/* ═══ UTILS ═══ */
-function showToast(msg,dur=3000){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('on');
-  setTimeout(()=>t.classList.remove('on'),dur);
-}
-function showTab(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  document.getElementById(id).classList.add('on');
-  btn.classList.add('on');
+function switchSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.currentTarget.classList.add('active');
 }
 
-/* ═══ BANK ═══ */
-function setF(type,val,btn){
-  SF[type]=val;
-  btn.closest('.filter-strip').querySelectorAll(`.chip[onclick*="'${type}'"]`).forEach(c=>c.classList.remove('on'));
-  btn.classList.add('on');
+function filterLines(filter, btn) {
+  activeFilter = filter;
+  document.querySelectorAll('.bank-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
   renderLines();
 }
-function renderLines(){
-  const q=(document.getElementById('search').value||'').toLowerCase();
-  const grid=document.getElementById('lines-grid');
-  const filt=LINES.filter(l=>{
-    const so=SF.src==='all'||l.src===SF.src;
-    const po=SF.ph==='all'||l.phase.toLowerCase().includes(SF.ph.toLowerCase());
-    const qo=!q||l.text.toLowerCase().includes(q)||l.id.toLowerCase().includes(q)||l.theme.toLowerCase().includes(q);
-    return so&&po&&qo;
-  });
-  if(!filt.length){grid.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--text-dim);font-family:Work Sans,sans-serif;font-size:12px;letter-spacing:0.1em">NO SIGNAL FOUND.</div>';return;}
-  grid.innerHTML=filt.map(l=>{
-    const sc=l.src==='Book'?'p-book':l.src==='4FREQ'?'p-freq':'p-hybrid';
-    const th=l.theme.split(' · ').slice(0,2);
-    const sh=l.text.length>110?l.text.slice(0,110)+'…':l.text;
-    return `<div class="line-card" onclick="toGen('${l.id}')">
-      <div class="line-id">${l.id}</div>
-      <div class="line-quote">"${sh}"</div>
-      <div class="line-pills">
-        <span class="pill ${sc}">${l.src}</span>
-        ${th.map(t=>`<span class="pill p-theme">${t}</span>`).join('')}
-        <span class="pill p-phase">${l.phase.split('→')[0].trim()}</span>
-      </div>
-      <button class="use-btn" onclick="event.stopPropagation();toGen('${l.id}')">Use in generator →</button>
-    </div>`;
-  }).join('');
-}
-function toGen(id){
-  document.getElementById('line-sel').value=id;
-  showTab('gen',document.querySelector('.tab:nth-child(2)'));
-  renderPrev();
-}
 
-/* ═══ GENERATOR ═══ */
-function setPlat(p,btn){
-  plat=p;
-  document.querySelectorAll('.plat-btn').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');renderPrev();
-}
-function setBg(b,btn){
-  bg=b;
-  document.querySelectorAll('.bg-sw').forEach(s=>s.classList.remove('on'));
-  btn.classList.add('on');renderPrev();
-}
-function getL(){
-  const id=document.getElementById('line-sel').value;
-  return LINES.find(l=>l.id===id)||null;
-}
-function renderPrev(){
-  const l=getL();
-  const mount=document.getElementById('prev-mount');
-  const hint=document.getElementById('prev-hint');
-  const lbl=document.getElementById('prev-lbl');
-  const cap=document.getElementById('caption').value;
-  const s=BG_STYLES[bg];
-  if(!l){mount.innerHTML='';hint.style.display='block';return;}
-  hint.style.display='none';
-  const sh=l.text.length>130?l.text.slice(0,130)+'…':l.text;
-  const vs=l.text.length>75?l.text.slice(0,75)+'…':l.text;
-
-  if(plat==='ig'){
-    lbl.textContent='IG SINGLE · 1:1';
-    mount.innerHTML=`<div class="phone">
-      <div class="ph-notch"><div class="ph-pill"></div></div>
-      <div class="ig-top" style="background:${s.bg}">
-        <div class="ig-av" style="background:${s.text==='#111111'?'#111':'#222'}">
-          <span style="color:${s.text};font-family:'Work Sans',sans-serif;font-size:9px;font-weight:900">M3</span>
-        </div>
-        <div>
-          <div style="font-family:'Work Sans',sans-serif;font-size:11px;font-weight:700;color:${s.text};letter-spacing:0.04em">m3andthem</div>
-          <div style="font-size:9px;color:${s.sub};font-family:'Work Sans',sans-serif;letter-spacing:0.08em">CHICAGO · 2026</div>
-        </div>
-      </div>
-      <div class="ig-sq" style="background:${s.bg}">
-        <div style="font-family:'DM Sans',sans-serif;font-size:13.5px;font-style:italic;color:${s.text};line-height:1.65;text-align:center">"${sh}"</div>
-        <div style="width:${s.stripe==='#FAFAF8'?'20':'24'}px;height:2px;background:${s.stripe};border-radius:1px"></div>
-        <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:${s.sub};text-align:center">${l.id} · ME & THEM</div>
-        ${cap?`<div style="font-size:9px;color:${s.sub};text-align:center;font-style:italic;font-family:'DM Sans',sans-serif;margin-top:2px">${cap}</div>`:''}
-      </div>
-      <div class="ig-foot" style="background:${s.bg}">
-        <svg class="ig-ico" viewBox="0 0 24 24" stroke="${s.text}"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <svg class="ig-ico" viewBox="0 0 24 24" stroke="${s.text}"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        <svg class="ig-ico" viewBox="0 0 24 24" stroke="${s.text}"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-        <svg class="ig-ico" style="margin-left:auto" viewBox="0 0 24 24" stroke="${s.text}"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-      </div></div>`;
-
-  } else if(plat==='carousel'){
-    lbl.textContent='IG CAROUSEL · 1:1 · 3 SLIDES';
-    const bg2=bg==='black'?'#1a1a1a':bg==='white'?'#eeecea':bg==='blue'?'#1d4ed8':'#152038';
-    const bg3=bg==='white'?'#111':'#0a0a0a';
-    mount.innerHTML=`<div class="phone">
-      <div class="ph-notch"><div class="ph-pill"></div></div>
-      <div class="ig-top" style="background:var(--surface-2)">
-        <div class="ig-av"><span style="color:#fff;font-family:'Work Sans',sans-serif;font-size:9px;font-weight:900">M3</span></div>
-        <div style="font-family:'Work Sans',sans-serif;font-size:11px;font-weight:700;color:var(--core-white)">m3andthem</div>
-      </div>
-      <div style="position:relative">
-        <div class="car-outer"><div class="car-track" id="ct">
-          <div class="car-slide" style="background:${s.bg}">
-            <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:${s.accent};margin-bottom:6px">${l.id} · ${l.theme.split(' · ')[0].toUpperCase()}</div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:13px;font-style:italic;color:${s.text};line-height:1.65;text-align:center">"${vs}"</div>
-            <div style="width:20px;height:2px;background:${s.accent};border-radius:1px;margin-top:6px"></div>
-          </div>
-          <div class="car-slide" style="background:${bg2}">
-            <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:${s.sub};margin-bottom:8px">ME & THEM</div>
-            <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-style:italic;color:${s.text};line-height:1.65;text-align:center">${l.text.length>75?'"…'+l.text.slice(75,165)+'…"':'"'+l.text+'"'}</div>
-          </div>
-          <div class="car-slide" style="background:${bg3}">
-            <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--signal-blue);margin-bottom:8px">WEAR THE FREQUENCY.</div>
-            <div style="font-family:'Work Sans',sans-serif;font-size:11px;font-weight:600;color:#FAFAF8;text-align:center;line-height:1.6">ME & THEM: A PLACE OF WORDS<br><span style="opacity:.4;font-size:9px;font-weight:400">BRANDON ELLIS B. · SEPT 15, 2026</span></div>
-            <div style="width:16px;height:2px;background:var(--signal-blue);margin:10px auto;border-radius:1px"></div>
-            <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,250,248,0.35)">LINK IN BIO</div>
-          </div>
-        </div></div>
-        <div class="car-arrows">
-          <div class="car-arr" onclick="slideC(-1)">‹</div>
-          <div class="car-arr" onclick="slideC(1)">›</div>
-        </div>
-      </div>
-      <div class="car-nav" id="cn"><div class="car-dot on"></div><div class="car-dot"></div><div class="car-dot"></div></div>
-      <div class="ig-foot" style="background:var(--surface-2)">
-        <svg class="ig-ico" viewBox="0 0 24 24" stroke="var(--core-white)"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-        <span style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;color:var(--text-dim);letter-spacing:0.06em;margin-left:auto" id="slide-ct">1 OF 3</span>
-      </div></div>`;
-    cIdx=0;
-
-  } else if(plat==='linkedin'){
-    lbl.textContent='LINKEDIN · LONG-FORM';
-    mount.innerHTML=`<div class="li-wrap">
-      <div class="li-head" style="background:var(--surface-2)">
-        <div class="li-av">BE</div>
-        <div>
-          <div style="font-family:'Work Sans',sans-serif;font-size:12px;font-weight:700;color:var(--core-white)">Brandon Ellis B.</div>
-          <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:500;letter-spacing:0.06em;color:var(--text-dim)">Author · BECS · M3 & TH3M · Chicago</div>
-          <div style="font-size:10px;color:var(--text-dim);margin-top:1px">1h · 🌐</div>
-        </div>
-      </div>
-      <div class="li-body" style="background:var(--surface-1)">
-        ${cap?`<p style="margin-bottom:10px;font-size:12px;color:var(--text-primary);line-height:1.7">${cap}</p>`:''}
-        <p style="margin-bottom:10px;font-style:italic;border-left:2px solid var(--signal-blue);padding-left:10px;font-size:12px;color:var(--ghost-cream);line-height:1.7;font-family:'DM Sans',sans-serif">"${sh}"</p>
-        <p style="font-family:'Work Sans',sans-serif;font-size:10px;font-weight:600;letter-spacing:0.06em;color:var(--text-dim);margin-bottom:8px;text-transform:uppercase">— ${l.id} · ME & THEM: A Place of Words</p>
-        <p style="font-size:11px;color:var(--text-secondary);margin-bottom:6px">Available September 15, 2026. Pre-order link in bio.</p>
-        <p style="font-size:10px;color:var(--text-dim)">#MEandTHEM #4FREQ #MentalHealth #RecoveryMonth #Poetry #WearTheFrequency</p>
-      </div>
-      <div class="li-foot" style="background:var(--surface-2)">
-        <span>👍 Like</span><span>💬 Comment</span><span>↗ Share</span>
-      </div></div>`;
-
-  } else if(plat==='threads'){
-    lbl.textContent='THREADS · ONE-LINER';
-    const tw=l.text.split(' ').slice(0,22).join(' ')+(l.text.split(' ').length>22?'…':'');
-    mount.innerHTML=`<div class="th-wrap">
-      <div class="th-av"><span style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:900">M3</span></div>
-      <div style="flex:1">
-        <div style="font-family:'Work Sans',sans-serif;font-size:12px;font-weight:700;color:var(--core-white);margin-bottom:4px">m3andthem</div>
-        <div style="font-size:12px;line-height:1.65;color:var(--ghost-cream);font-family:'DM Sans',sans-serif;font-style:italic">"${tw}"</div>
-        ${cap?`<div style="font-size:11px;color:var(--text-secondary);margin-top:6px;font-family:'DM Sans',sans-serif">${cap}</div>`:''}
-        <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-dim);margin-top:8px">${l.id} · WEAR THE FREQUENCY.</div>
-        <div style="display:flex;gap:14px;margin-top:8px">
-          <span style="font-size:10px;color:var(--text-dim)">♡</span>
-          <span style="font-size:10px;color:var(--text-dim)">↩ Reply</span>
-          <span style="font-size:10px;color:var(--text-dim)">↗</span>
-        </div>
-      </div></div>`;
-
-  } else if(plat==='story'){
-    lbl.textContent='STORY · 9:16';
-    const st=l.text.length>80?l.text.slice(0,80)+'…':l.text;
-    mount.innerHTML=`<div style="position:relative;width:140px">
-      <div style="position:absolute;top:8px;left:10px;right:10px;height:1.5px;background:rgba(250,250,248,0.15);border-radius:1px;z-index:2">
-        <div style="height:100%;width:38%;background:${s.accent};border-radius:1px"></div>
-      </div>
-      <div class="story-wrap" style="background:${s.bg}">
-        <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:${s.accent}">${l.id}</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;font-style:italic;color:${s.text};line-height:1.6;text-align:center">"${st}"</div>
-        <div style="width:16px;height:1.5px;background:${s.accent};border-radius:1px"></div>
-        <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:${s.sub};text-align:center">ME & THEM<br>BRANDON ELLIS B.</div>
-        <div style="position:absolute;bottom:14px;left:0;right:0;text-align:center">
-          <span style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:600;letter-spacing:0.1em;color:${s.sub};background:rgba(0,0,0,0.35);padding:3px 10px;border-radius:2px">SEE MORE ↑</span>
-        </div>
-      </div></div>`;
-
-  } else if(plat==='tiktok'){
-    lbl.textContent='TIKTOK · 6-SEC HOOK';
-    const hook=l.text.split(' ').slice(0,10).join(' ')+'…';
-    mount.innerHTML=`<div class="tt-wrap">
-      <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:800;letter-spacing:0.2em;text-transform:uppercase;color:var(--signal-blue);margin-bottom:12px">6-SEC OPENER</div>
-      <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-style:italic;color:var(--ghost-cream);line-height:1.6;margin-bottom:14px">"${hook}"</div>
-      <div style="border-top:1px solid var(--border-faint);padding-top:12px;margin-bottom:8px">
-        <div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px">FULL CAPTION</div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.7;color:var(--text-primary)">${cap||'"'+sh+'"'}<br><br>ME &amp; THEM: A Place of Words drops Sept 15.<br><br><span style="color:var(--signal-blue)">#MEandTHEM #4FREQ #BookTok #MentalHealth #WearTheFrequency</span></div>
-      </div></div>`;
-  }
-}
-
-function slideC(dir){
-  const t=document.getElementById('ct');
-  const c=document.getElementById('slide-ct');
-  const max=3;
-  cIdx=Math.max(0,Math.min(max-1,cIdx+dir));
-  if(t)t.style.transform=`translateX(-${cIdx*100}%)`;
-  document.querySelectorAll('.car-dot').forEach((d,i)=>d.classList.toggle('on',i===cIdx));
-  if(c)c.textContent=`${cIdx+1} OF ${max}`;
-}
-
-function copyText(){
-  const l=getL();
-  if(!l){showToast('SELECT A LINE FIRST.');return;}
-  const txt=`"${l.text}"\n\n— ${l.id} · ME & THEM: A Place of Words · Brandon Ellis B.\nWear the frequency.`;
-  navigator.clipboard.writeText(txt).then(()=>{
-    const b=document.getElementById('copy-btn');
-    b.textContent='COPIED.';b.classList.add('copy-ok');
-    setTimeout(()=>{b.textContent='Copy Line Text';b.classList.remove('copy-ok');},2200);
-  }).catch(()=>showToast('Copy manually — select and Ctrl+C.',3000));
-}
-
-/* ═══ CALENDAR ═══ */
-function showMonth(m,btn){
-  month=m;
-  document.querySelectorAll('.m-tab').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderCal(m);
-}
-function renderCal(m){
-  const mo=MONTHS[m];
-  document.getElementById('cadence-tag').textContent=mo.cad.toUpperCase();
-  const today=new Date();
-  const tm=today.getMonth(),td=today.getDate(),ty=today.getFullYear();
-  const evMap={};
-  SCHED.filter(s=>s[0]===mo.mi).forEach(s=>{
-    const d=s[1];
-    if(!evMap[d])evMap[d]=[];
-    evMap[d].push({label:s[2],type:s[3]});
-  });
-  const DAYS=['SUN','MON','TUE','WED','THU','FRI','SAT'];
-  let html=`<div class="cal-grid">`;
-  DAYS.forEach(d=>html+=`<div class="cal-day-lbl">${d}</div>`);
-  for(let i=0;i<mo.off;i++)html+=`<div class="cal-cell empty"></div>`;
-  for(let d=1;d<=mo.days;d++){
-    const isToday=mo.mi===tm&&d===td&&ty===2026;
-    const isLaunch=mo.mi===8&&d===15;
-    let cls='cal-cell';
-    if(isToday)cls+=' today';
-    if(isLaunch)cls+=' launch-day';
-    const evs=evMap[d]||[];
-    html+=`<div class="${cls}"><div class="cal-num">${d}</div>`;
-    evs.slice(0,3).forEach(ev=>{
-      html+=`<div class="cal-ev ev-${ev.type}" title="${ev.label}" onclick="calClick('${ev.label}')">${ev.label}</div>`;
-    });
-    if(evs.length>3)html+=`<div style="font-family:'Work Sans',sans-serif;font-size:9px;font-weight:700;color:var(--text-dim);letter-spacing:0.06em;padding-left:3px">+${evs.length-3}</div>`;
-    html+=`</div>`;
-  }
-  html+=`</div>`;
-  document.getElementById('cal-mount').innerHTML=html;
-}
-function calClick(label){
-  const l=LINES.find(x=>x.id===label);
-  if(l)showToast(`${l.id}: "${l.text.slice(0,70)}…"`,4500);
-  else showToast(label,3000);
-}
-
-/* ═══ NOTIFICATIONS ═══ */
-function openModal(){
-  buildUpcoming();
-  updateStatus();
-  document.getElementById('modal').classList.add('on');
-}
-function closeModal(){document.getElementById('modal').classList.remove('on')}
-function buildUpcoming(){
-  const today=new Date();
-  const in14=new Date(today);in14.setDate(today.getDate()+14);
-  const list=document.getElementById('upcoming-list');
-  const up=[];
-  SCHED.forEach(s=>{
-    const d=new Date(2026,s[0],s[1]);
-    if(d>=today&&d<=in14)up.push({d,label:s[2],type:s[3]});
-  });
-  up.sort((a,b)=>a.d-b.d);
-  if(!up.length){list.innerHTML='<li style="font-size:12px;color:var(--text-dim);padding:10px;font-family:DM Sans,sans-serif">No posts in the next 14 days.</li>';return;}
-  list.innerHTML=up.slice(0,10).map(u=>{
-    const ds=u.d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
-    const l=LINES.find(x=>x.id===u.label);
-    return `<li class="upcoming-item">
-      <span class="upcoming-date">${ds}</span>
-      <span class="upcoming-text">${u.label}</span>
-      <span class="upcoming-src">${l?l.src.toUpperCase():''}</span>
-    </li>`;
-  }).join('');
-}
-function updateStatus(){
-  const el=document.getElementById('notif-status');
-  if(!('Notification' in window)){el.textContent='Browser notifications not supported. Bookmark and open daily.';return;}
-  const p=Notification.permission;
-  if(p==='granted')el.innerHTML='<span style="color:var(--signal-blue)">SIGNAL ACTIVE.</span> Alerts will fire when you open this file on a posting day.';
-  else if(p==='denied')el.innerHTML='<span style="color:#E05A4A">SIGNAL BLOCKED.</span> Enable in browser settings → Notifications.';
-  else el.textContent='SIGNAL INACTIVE. Click "Enable Alerts" to allow posting reminders.';
-}
-async function requestNotif(){
-  if(!('Notification' in window)){showToast('NOT SUPPORTED.');return;}
-  const p=await Notification.requestPermission();
-  updateStatus();
-  if(p==='granted'){showToast('SIGNAL ACTIVE. YOU\'LL BE ALERTED ON POSTING DAYS.');checkToday();}
-  else showToast('PERMISSION DENIED. CHECK BROWSER SETTINGS.');
-}
-function checkToday(){
-  if(Notification.permission!=='granted')return;
-  const today=new Date();
-  const tm=today.getMonth(),td=today.getDate();
-  const todayPosts=SCHED.filter(s=>s[0]===tm&&s[1]===td);
-  if(!todayPosts.length)return;
-  const bar=document.getElementById('alert-bar');
-  const msg=document.getElementById('alert-msg');
-  msg.textContent='POST DUE TODAY: '+todayPosts.map(s=>s[2]).join(', ');
-  bar.classList.add('on');
-  const key='m3them_notif_'+today.toDateString();
-  if(!localStorage.getItem(key)){
-    try{
-      new Notification('M3 & TH3M · Content Hub',{
-        body:'POST DUE TODAY: '+todayPosts.map(s=>s[2]).join(', '),
-        icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" fill="%23111111"/><text x="16" y="22" text-anchor="middle" fill="%232563EB" font-size="12" font-family="sans-serif" font-weight="900">M3</text></svg>',
-      });
-      localStorage.setItem(key,'fired');
-    }catch(e){}
-  }
-}
-
-/* ═══ INIT ═══ */
-function init(){
+function searchLines() {
   renderLines();
-  const sel=document.getElementById('line-sel');
-  LINES.forEach(l=>{
-    const o=document.createElement('option');
-    o.value=l.id;
-    o.textContent=`${l.id} — ${l.text.slice(0,50)}${l.text.length>50?'…':''}`;
-    sel.appendChild(o);
-  });
-  renderCal('may');
-  checkToday();
-  document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 }
-init();
 
-/* ═══ IMAGE EXPORT ═══ */
-async function downloadImg(fmt){
-  const l = getL();
-  if(!l){showToast('SELECT A LINE FIRST.');return;}
-  const mount = document.getElementById('prev-mount');
-  if(!mount||!mount.firstElementChild){showToast('SELECT A PLATFORM PREVIEW FIRST.');return;}
+function renderLines() {
+  const query = document.getElementById('searchBox').value.toLowerCase();
+  const grid = document.getElementById('linesGrid');
+  const filtered = LINES.filter(l => {
+    const matchFilter = activeFilter === 'all' || l.type === activeFilter || l.phase === activeFilter;
+    const matchSearch = !query || l.text.toLowerCase().includes(query) || l.id.toLowerCase().includes(query);
+    return matchFilter && matchSearch;
+  });
+  grid.innerHTML = filtered.map(l => `
+    <div class="line-card type-${l.type}">
+      <div class="line-id">
+        <span>${l.id}</span>
+        <span class="line-type-tag">${l.type.toUpperCase()}</span>
+      </div>
+      <div class="line-text">${l.text}</div>
+      <div class="line-meta">
+        <span class="line-phase">${l.phase.toUpperCase()}</span>
+        <button class="use-btn" onclick="useInGenerator('${l.id}')">USE IN GEN →</button>
+      </div>
+    </div>
+  `).join('');
+}
 
-  const btn = event.target;
-  const orig = btn.textContent;
-  btn.textContent = 'RENDERING…';
-  btn.disabled = true;
+function useInGenerator(id) {
+  switchSection('generator');
+  document.querySelectorAll('.nav-tab').forEach((t,i) => {
+    if(i===1) t.classList.add('active'); else t.classList.remove('active');
+  });
+  document.getElementById('lineSelect').value = id;
+  updatePreview();
+  const line = LINES.find(l => l.id === id);
+  if(line) {
+    document.getElementById('aiPromptBox').value = buildAutoPrompt(line);
+  }
+}
+
+function buildAutoPrompt(line) {
+  const phaseMap = {
+    foundation: 'abstract dark background with roots or ground elements',
+    resistance: 'dramatic tension, sharp contrast, dark atmospheric',
+    identity: 'mirror reflection, duality, light and shadow',
+    launch: 'horizon, signal waves, open sky, expansion'
+  };
+  return `${phaseMap[line.phase] || 'abstract atmospheric dark art'}, cinematic, editorial photography style, no text`;
+}
+
+function updatePreview() {
+  const lineId = document.getElementById('lineSelect').value;
+  const line = LINES.find(l => l.id === lineId);
+  if(line) {
+    document.getElementById('aiPromptBox').value = buildAutoPrompt(line);
+  }
+  document.getElementById('placeholderMsg').style.display = '';
+  const canvas = document.getElementById('previewCanvas');
+  canvas.style.display = 'none';
+}
+
+function setPlatform(p, btn) {
+  currentPlatform = p;
+  document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setImgMode(mode, btn) {
+  currentImgMode = mode;
+  document.querySelectorAll('.img-mode-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  ['none','ai','upload'].forEach(m => {
+    document.getElementById('imgMode'+m.charAt(0).toUpperCase()+m.slice(1)).style.display = m === mode ? 'block' : 'none';
+  });
+}
+
+function handleImageUpload(e) {
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    uploadedImageDataUrl = ev.target.result;
+    document.getElementById('uploadZoneText').innerHTML = `<span style="color:var(--accent);font-size:10px;">IMAGE LOADED ✓</span><br><span style="color:var(--text3);font-size:9px;">${file.name}</span>`;
+    showToast('Image loaded', 'success');
+  };
+  reader.readAsDataURL(file);
+}
+
+async function generateAIImage() {
+  const prompt = document.getElementById('aiPromptBox').value.trim();
+  if(!prompt) { showToast('Add a prompt first', 'error'); return; }
+
+  const errEl = document.getElementById('aiError');
+  errEl.style.display = 'none';
+
+  const loadEl = document.getElementById('previewLoading');
+  loadEl.classList.add('visible');
+  document.getElementById('previewCanvas').style.display = 'none';
+  document.getElementById('placeholderMsg').style.display = 'none';
 
   try {
-    // Find the innermost preview element (phone frame or card)
-    const target = mount.firstElementChild;
-
-    // Temporarily force opaque bg and scale up for quality
-    const oldBg = target.style.background;
-    if(!target.style.background || target.style.background === 'transparent')
-      target.style.background = '#111111';
-
-    const canvas = await html2canvas(target, {
-      scale: 3,
-      useCORS: true,
-      allowTaint: true,
-      backgroundColor: target.style.backgroundColor || '#111111',
-      logging: false,
-      width: target.offsetWidth,
-      height: target.offsetHeight,
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{
+          role: 'user',
+          content: `You are a creative visual director. Generate a detailed, vivid image description for a social media post visual based on this prompt: "${prompt}". The image should be suitable for Instagram/social media, editorial and cinematic in quality. Respond ONLY with a JSON object: {"description": "...", "colors": ["#hex1","#hex2","#hex3"], "mood": "one word", "style": "photography|illustration|abstract"}`
+        }]
+      })
     });
 
-    target.style.background = oldBg;
+    const data = await res.json();
+    const textContent = data.content?.find(c => c.type === 'text')?.text || '';
+    let parsed;
+    try {
+      const clean = textContent.replace(/```json|```/g,'').trim();
+      parsed = JSON.parse(clean);
+    } catch {
+      parsed = { description: textContent, colors: ['#1a1a2e','#c8f55a','#0a0a0a'], mood: 'cinematic', style: 'abstract' };
+    }
 
-    const mimeType = fmt === 'jpeg' ? 'image/jpeg' : 'image/png';
-    const quality  = fmt === 'jpeg' ? 0.95 : 1.0;
-    const ext      = fmt === 'jpeg' ? 'jpg' : 'png';
-    const dataUrl  = canvas.toDataURL(mimeType, quality);
-
-    const a = document.createElement('a');
-    a.href = dataUrl;
-    a.download = `m3them_${l.id}_${plat}.${ext}`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    showToast(`DOWNLOADED: m3them_${l.id}_${plat}.${ext}`, 3000);
+    aiGeneratedImageDataUrl = await renderAIImageToCanvas(parsed);
+    loadEl.classList.remove('visible');
+    showToast('Image generated', 'success');
+    errEl.style.display = 'none';
   } catch(err) {
-    console.error(err);
-    showToast('RENDER FAILED — try a different platform or browser.',4000);
-  } finally {
-    btn.textContent = orig;
-    btn.disabled = false;
+    loadEl.classList.remove('visible');
+    errEl.textContent = 'Generation failed — check connection';
+    errEl.style.display = 'block';
   }
 }
+
+async function renderAIImageToCanvas(imageData) {
+  const offscreen = document.createElement('canvas');
+  offscreen.width = 600; offscreen.height = 600;
+  const ctx = offscreen.getContext('2d');
+
+  const colors = imageData.colors && imageData.colors.length >= 2
+    ? imageData.colors
+    : ['#0d0d1a', '#1a1a2e', '#c8f55a'];
+
+  const grad = ctx.createRadialGradient(300, 300, 0, 300, 300, 420);
+  grad.addColorStop(0, colors[1] || '#1a1a2e');
+  grad.addColorStop(0.6, colors[0] || '#0d0d1a');
+  grad.addColorStop(1, '#000000');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0,0,600,600);
+
+  const col3 = colors[2] || '#c8f55a';
+  const r3 = parseInt(col3.slice(1,3),16);
+  const g3 = parseInt(col3.slice(3,5),16);
+  const b3 = parseInt(col3.slice(5,7),16);
+
+  for(let i = 0; i < 8; i++) {
+    const x = Math.random() * 600;
+    const y = Math.random() * 600;
+    const r = 40 + Math.random() * 120;
+    const opacity = 0.04 + Math.random() * 0.08;
+    const circGrad = ctx.createRadialGradient(x, y, 0, x, y, r);
+    circGrad.addColorStop(0, `rgba(${r3},${g3},${b3},${opacity})`);
+    circGrad.addColorStop(1, `rgba(${r3},${g3},${b3},0)`);
+    ctx.fillStyle = circGrad;
+    ctx.beginPath(); ctx.arc(x, y, r, 0, Math.PI*2); ctx.fill();
+  }
+
+  for(let i = 0; i < 40; i++) {
+    ctx.beginPath();
+    ctx.moveTo(Math.random()*600, Math.random()*600);
+    ctx.lineTo(Math.random()*600, Math.random()*600);
+    ctx.strokeStyle = `rgba(${r3},${g3},${b3},${0.02 + Math.random()*0.04})`;
+    ctx.lineWidth = Math.random() * 1.5;
+    ctx.stroke();
+  }
+
+  ctx.fillStyle = `rgba(${r3},${g3},${b3},0.07)`;
+  for(let i = 0; i < 600; i += 3) {
+    ctx.fillRect(0, i, 600, 1);
+  }
+
+  return offscreen.toDataURL('image/png');
+}
+
+function renderFinalPost() {
+  const lineId = document.getElementById('lineSelect').value;
+  if(!lineId) { showToast('Select a line first', 'error'); return; }
+
+  const line = LINES.find(l => l.id === lineId);
+  if(!line) return;
+
+  const dims = PLATFORM_DIMS[currentPlatform];
+  const scale = 0.5;
+  const cw = dims.w * scale;
+  const ch = dims.h * scale;
+
+  const canvas = document.getElementById('previewCanvas');
+  canvas.width = cw; canvas.height = ch;
+  const ctx = canvas.getContext('2d');
+
+  const style = document.getElementById('styleSelect').value;
+
+  const drawPost = () => {
+    ctx.clearRect(0,0,cw,ch);
+
+    const imageSource = currentImgMode === 'upload' ? uploadedImageDataUrl
+                      : currentImgMode === 'ai' ? aiGeneratedImageDataUrl
+                      : null;
+
+    if(imageSource) {
+      const img = new Image();
+      img.onload = () => {
+        const imgAspect = img.width / img.height;
+        const canvasAspect = cw / ch;
+        let sw, sh, sx, sy;
+        if(imgAspect > canvasAspect) { sh = ch; sw = sh * imgAspect; sy = 0; sx = (cw - sw) / 2; }
+        else { sw = cw; sh = sw / imgAspect; sx = 0; sy = (ch - sh) / 2; }
+        ctx.drawImage(img, sx, sy, sw, sh);
+        const overlay = ctx.createLinearGradient(0, 0, 0, ch);
+        overlay.addColorStop(0, 'rgba(0,0,0,0.3)');
+        overlay.addColorStop(0.5, 'rgba(0,0,0,0.2)');
+        overlay.addColorStop(1, 'rgba(0,0,0,0.7)');
+        ctx.fillStyle = overlay;
+        ctx.fillRect(0,0,cw,ch);
+        drawText(ctx, line, cw, ch, style);
+        finishCanvas(canvas);
+      };
+      img.src = imageSource;
+    } else {
+      const grad = ctx.createLinearGradient(0, 0, cw, ch);
+      grad.addColorStop(0, '#0a0a0a');
+      grad.addColorStop(0.5, '#111111');
+      grad.addColorStop(1, '#0d0d1a');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0,0,cw,ch);
+
+      ctx.fillStyle = 'rgba(200,245,90,0.03)';
+      for(let i = 0; i < ch; i += 4) { ctx.fillRect(0, i, cw, 2); }
+
+      const glowGrad = ctx.createRadialGradient(cw*0.7, ch*0.3, 0, cw*0.7, ch*0.3, cw*0.5);
+      glowGrad.addColorStop(0, 'rgba(200,245,90,0.06)');
+      glowGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = glowGrad;
+      ctx.fillRect(0,0,cw,ch);
+
+      drawText(ctx, line, cw, ch, style);
+      finishCanvas(canvas);
+    }
+  };
+
+  drawPost();
+}
+
+function drawText(ctx, line, cw, ch, style) {
+  const scale = cw / 540;
+
+  if(style === 'minimal') {
+    ctx.fillStyle = '#f0ede8';
+    ctx.font = `${Math.round(18*scale)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'center';
+    wrapText(ctx, line.text, cw/2, ch/2, cw*0.78, 28*scale);
+    ctx.font = `${Math.round(10*scale)}px 'Space Mono', monospace`;
+    ctx.fillStyle = 'rgba(200,245,90,0.6)';
+    ctx.fillText(`M3 & TH3M · ${line.id}`, cw/2, ch - 28*scale);
+    return;
+  }
+
+  if(style === 'centered') {
+    ctx.fillStyle = 'rgba(200,245,90,0.8)';
+    ctx.font = `${Math.round(10*scale)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillText(`M3 & TH3M`, 28*scale, 36*scale);
+
+    ctx.fillStyle = '#f0ede8';
+    ctx.font = `${Math.round(17*scale)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'center';
+    wrapText(ctx, '"'+line.text+'"', cw/2, ch*0.44, cw*0.78, 27*scale);
+
+    ctx.fillStyle = 'rgba(200,245,90,0.5)';
+    ctx.fillRect(cw/2 - 30*scale, ch*0.76, 60*scale, 1);
+
+    ctx.font = `${Math.round(9*scale)}px 'Space Mono', monospace`;
+    ctx.fillStyle = 'rgba(200,245,90,0.5)';
+    ctx.textAlign = 'center';
+    ctx.fillText(`${line.phase.toUpperCase()} · ${line.id}`, cw/2, ch*0.82);
+    return;
+  }
+
+  if(style === 'split') {
+    const barH = ch * 0.08;
+    ctx.fillStyle = '#c8f55a';
+    ctx.fillRect(0, ch - barH, cw, barH);
+    ctx.fillStyle = '#0a0a0a';
+    ctx.font = `bold ${Math.round(11*scale)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
+    ctx.fillText('M3 & TH3M', 24*scale, ch - barH/2 + 4*scale);
+    ctx.textAlign = 'right';
+    ctx.fillText(line.id, cw - 24*scale, ch - barH/2 + 4*scale);
+
+    ctx.fillStyle = '#f0ede8';
+    ctx.font = `${Math.round(20*scale)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'left';
+    wrapTextLeft(ctx, line.text, 28*scale, ch*0.3, cw*0.82, 30*scale);
+
+    ctx.fillStyle = 'rgba(200,245,90,0.4)';
+    ctx.fillRect(28*scale, ch*0.2, 40*scale, 2);
+    return;
+  }
+
+  if(style === 'bold') {
+    ctx.fillStyle = '#c8f55a';
+    ctx.fillRect(0, 0, cw, ch*0.5);
+
+    ctx.fillStyle = '#0a0a0a';
+    ctx.font = `bold ${Math.round(22*scale)}px 'Space Mono', monospace`;
+    ctx.textAlign = 'center';
+    wrapText(ctx, line.text, cw/2, ch*0.18, cw*0.82, 30*scale);
+
+    ctx.fillStyle = '#f0ede8';
+    ctx.font = `${Math.round(12*scale)}px 'Space Mono', monospace`;
+    wrapText(ctx, 'ME & TH3M', cw/2, ch*0.65, cw*0.82, 20*scale);
+
+    ctx.fillStyle = 'rgba(240,237,232,0.15)';
+    ctx.font = `${Math.round(9*scale)}px 'Space Mono', monospace`;
+    ctx.fillText(`${line.phase.toUpperCase()} · ${line.id}`, cw/2, ch*0.88);
+  }
+}
+
+function wrapText(ctx, text, x, y, maxW, lineH) {
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+  for(const word of words) {
+    const test = line + (line ? ' ' : '') + word;
+    if(ctx.measureText(test).width > maxW && line) { lines.push(line); line = word; }
+    else line = test;
+  }
+  if(line) lines.push(line);
+  const startY = y - (lines.length - 1) * lineH / 2;
+  lines.forEach((l, i) => ctx.fillText(l, x, startY + i * lineH));
+}
+
+function wrapTextLeft(ctx, text, x, y, maxW, lineH) {
+  const words = text.split(' ');
+  let line = '';
+  let lines = [];
+  for(const word of words) {
+    const test = line + (line ? ' ' : '') + word;
+    if(ctx.measureText(test).width > maxW && line) { lines.push(line); line = word; }
+    else line = test;
+  }
+  if(line) lines.push(line);
+  lines.forEach((l, i) => ctx.fillText(l, x, y + i * lineH));
+}
+
+function finishCanvas(canvas) {
+  canvas.style.display = 'block';
+  document.getElementById('placeholderMsg').style.display = 'none';
+}
+
+function downloadPost(fmt) {
+  const canvas = document.getElementById('previewCanvas');
+  if(!canvas.style.display || canvas.style.display === 'none') {
+    showToast('Render post first', 'error'); return;
+  }
+  const mime = fmt === 'png' ? 'image/png' : 'image/jpeg';
+  const quality = fmt === 'jpg' ? 0.92 : undefined;
+  const url = canvas.toDataURL(mime, quality);
+  const a = document.createElement('a');
+  a.download = `m3them-post-${Date.now()}.${fmt}`;
+  a.href = url;
+  a.click();
+  showToast(`Downloading ${fmt.toUpperCase()}`, 'success');
+}
+
+const CALENDAR_DATA = {
+  may: {
+    cadence: 'Mon / Wed / Fri / Sun',
+    daysInMonth: 31, daysOffset: 3,
+    events: {
+      5: ['B01','book'], 7: ['F01','freq'], 9: ['H01','hybrid'],
+      12: ['B02','book'], 14: ['F02','freq'], 16: ['H02','hybrid'], 18: ['B03','book'],
+      21: ['F03','freq'], 23: ['H03','hybrid'], 25: ['B04','book'],
+      28: ['F04','freq'], 30: ['H04','hybrid']
+    }
+  },
+  june: {
+    cadence: 'Mon / Wed / Fri / Sun',
+    daysInMonth: 30, daysOffset: 0,
+    events: {
+      2: ['B05','book'], 4: ['F05','freq'], 6: ['H05','hybrid'], 8: ['B06','book'],
+      11: ['F06','freq'], 13: ['H06','hybrid'], 15: ['B07','book'],
+      18: ['F07','freq'], 20: ['H07','hybrid'], 22: ['B08','book'],
+      25: ['F08','freq'], 27: ['H08','hybrid'], 29: ['B09','book']
+    }
+  },
+  july: {
+    cadence: 'Mon / Wed / Fri / Sun',
+    daysInMonth: 31, daysOffset: 2,
+    events: {
+      2: ['F09','freq'], 4: ['H09','hybrid'], 6: ['B10','book'],
+      9: ['F10','freq'], 11: ['H10','hybrid'], 13: ['B11','book'],
+      16: ['F11','freq'], 18: ['H11','hybrid'], 20: ['B12','book'],
+      23: ['F12','freq'], 25: ['H12','hybrid'], 27: ['B13','book'],
+      30: ['F13','freq']
+    }
+  },
+  august: {
+    cadence: 'Mon / Wed / Fri / Sun',
+    daysInMonth: 31, daysOffset: 5,
+    events: {
+      1: ['H13','hybrid'], 3: ['B14','book'],
+      6: ['F14','freq'], 8: ['H14','hybrid'], 10: ['B15','book'],
+      13: ['F15','freq'], 15: ['H15','hybrid'], 17: ['B16','book'],
+      20: ['F16','freq'], 22: ['H16','hybrid'], 24: ['B17','book'],
+      27: ['F17','freq'], 29: ['H17','hybrid'], 31: ['B18','book']
+    }
+  },
+  september: {
+    cadence: 'Mon / Wed / Fri / Sun',
+    daysInMonth: 30, daysOffset: 1,
+    events: {
+      3: ['F18','freq'], 5: ['H18','hybrid'], 7: ['B19','book'],
+      10: ['F19','freq'], 12: ['H19','hybrid'], 14: ['B20','book'],
+      17: ['F20','freq'], 19: ['H20','hybrid'], 21: ['B01','book'],
+      24: ['F01','freq'], 26: ['H01','hybrid'], 28: ['B02','book']
+    }
+  },
+  october: {
+    cadence: 'Mon / Wed / Fri / Sun',
+    daysInMonth: 31, daysOffset: 3,
+    events: {
+      1: ['F02','freq'], 3: ['H02','hybrid'], 5: ['B03','book'],
+      8: ['F03','freq'], 10: ['H03','hybrid'], 12: ['B04','book'],
+      15: ['F04','freq'], 17: ['H04','hybrid'], 19: ['B05','book'],
+      22: ['F05','freq'], 24: ['H05','hybrid'], 26: ['B06','book'],
+      29: ['F06','freq'], 31: ['H06','hybrid']
+    }
+  }
+};
+
+function initCalendar() {
+  const months = Object.keys(CALENDAR_DATA);
+  const tabsEl = document.getElementById('monthTabs');
+  months.forEach((m, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'month-btn' + (i === 0 ? ' active' : '');
+    btn.textContent = m.toUpperCase().slice(0,3);
+    btn.onclick = () => {
+      document.querySelectorAll('.month-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderCalendar(m);
+    };
+    tabsEl.appendChild(btn);
+  });
+  renderCalendar('may');
+}
+
+function renderCalendar(month) {
+  const data = CALENDAR_DATA[month];
+  const days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+  const grid = document.getElementById('calGrid');
+  let html = `<div style="font-family:var(--mono);font-size:10px;color:var(--text3);margin-bottom:12px;letter-spacing:0.5px;">CADENCE: ${data.cadence}</div>`;
+  html += `<div class="cal-grid">`;
+  days.forEach(d => html += `<div class="cal-day-label">${d}</div>`);
+  for(let i = 0; i < data.daysOffset; i++) html += `<div class="cal-day empty"></div>`;
+  for(let d = 1; d <= data.daysInMonth; d++) {
+    const isToday = month === 'may' && d === 4 ? ' today' : '';
+    const ev = data.events[d];
+    const evHtml = ev ? `<div class="cal-event ${ev[1]}" onclick="useInGenerator('${ev[0]}')">${ev[0]}</div>` : '';
+    html += `<div class="cal-day${isToday}"><div class="cal-date">${d}</div>${evHtml}</div>`;
+  }
+  html += `</div>`;
+  grid.innerHTML = html;
+}
+
+function enableNotifications() {
+  if('Notification' in window) {
+    Notification.requestPermission().then(p => {
+      showToast(p === 'granted' ? 'Reminders enabled' : 'Permission denied', p === 'granted' ? 'success' : 'error');
+    });
+  } else { showToast('Not supported in this browser', 'error'); }
+}
+
+function showToast(msg, type='') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = `toast show ${type}`;
+  setTimeout(() => t.className = 'toast', 2800);
+}
+
+function init() {
+  renderLines();
+  const sel = document.getElementById('lineSelect');
+  LINES.forEach(l => {
+    const opt = document.createElement('option');
+    opt.value = l.id;
+    opt.textContent = `${l.id} — ${l.text.slice(0,50)}${l.text.length>50?'…':''}`;
+    sel.appendChild(opt);
+  });
+  initCalendar();
+}
+
+init();
 </script>
 </body>
 </html>
